@@ -1,0 +1,8 @@
+  spring:
+    profiles:
+      active: mysql
+    datasource:
+        url: jdbc:postgre:http://localhost:8081/community
+        username: pgsql
+        password: 1234
+    

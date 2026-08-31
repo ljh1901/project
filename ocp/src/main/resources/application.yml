@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: ocp
+  config:
+    activate:
+      on-profile: [local, mysql]
+      
+  # file 관련 사이즈
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 2GB
+
+  # thymeleaf 설정
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.thymeleaf.ThymeleafAutoConfiguration
+
+        
+        
