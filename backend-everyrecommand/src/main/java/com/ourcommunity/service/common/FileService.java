@@ -1,9 +1,10 @@
 package com.ourcommunity.service.common;
 
-import org.springframework.stereotype.Service;
+import java.io.IOException;
+import java.util.Map;
+import org.springframework.web.multipart.MultipartFile;
 
-@Service 
 public interface FileService {
-    public void fileUpload();
-    public void fileDownload();
+    Map<String, Object> fileUpload(MultipartFile file, String owner) throws IOException;
+    Map<String, Object> fileDownload(String fileId, String owner, MultipartFile upload) throws IOException;
 }

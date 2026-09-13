@@ -22,6 +22,8 @@ server:
         secure: true
         same-site: lax
 app:
+  file:
+    storage-path: ${FILE_STORAGE_PATH:./uploads}
   frontend:
     api-url: ${PUBLIC_API_URL:/api}
     websocket-url: ${PUBLIC_WEBSOCKET_URL:}
