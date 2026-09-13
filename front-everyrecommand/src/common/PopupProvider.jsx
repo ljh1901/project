@@ -1,8 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useRef, useState } from 'react';
 
 const PopupContext = createContext(null);
+// 공통 팝업을 호출할 수 있는 함수를 가져옵니다.
 export const usePopup = () => useContext(PopupContext);
 
+// 알림·확인·입력 팝업을 요청 순서대로 표시합니다.
 export function PopupProvider({ children }) {
   const [items, setItems] = useState([]);
   const pending = useRef(new Set());
@@ -10,6 +12,7 @@ export function PopupProvider({ children }) {
   const input = useRef(null);
   const active = items[0];
   const popup = useMemo(() => {
+    // 팝업을 대기열에 추가하고 사용자의 응답을 기다립니다.
     const open = (type, message, defaultValue = '') => new Promise(resolve => {
       const item = { type, message, defaultValue, resolve };
       pending.current.add(item);
@@ -34,6 +37,7 @@ export function PopupProvider({ children }) {
       dialog.current?.close();
     }
   }, [active]);
+  // 현재 팝업의 응답을 전달하고 다음 팝업으로 넘어갑니다.
   function close(value) {
     pending.current.delete(active);
     active.resolve(value);

@@ -7,6 +7,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public final class PasswordHashTool {
     private PasswordHashTool() {}
+    // 터미널에서 입력받은 비밀번호를 BCrypt 해시로 변환해 출력합니다.
     public static void main(String[] args) {
         Console console = System.console();
         if (console == null) {

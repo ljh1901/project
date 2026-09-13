@@ -4,10 +4,12 @@ import { createApiClient } from './common/apiClient.js';
 import { PopupProvider, usePopup } from './common/PopupProvider.jsx';
 import { Router } from './router.js';
 
+// 앱 전체에 공통 팝업 기능을 제공합니다.
 export function AppShell({ config }) {
   return <PopupProvider><Application config={config} /></PopupProvider>;
 }
 
+// 로그인 상태를 조회하고 앱 설정과 API 클라이언트를 화면에 공유합니다.
 function Application({ config }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);

@@ -6,6 +6,7 @@ export class ApiError extends Error {
   }
 }
 
+// 공통 JSON 응답을 검사해 데이터를 반환하거나 API 오류를 발생시킵니다.
 export async function readJsonResponse(response) {
   let result;
   try {
@@ -22,10 +23,12 @@ export async function readJsonResponse(response) {
   return result.data;
 }
 
+// 세션 쿠키와 CSRF 처리를 포함한 공통 API 클라이언트를 생성합니다.
 export function createApiClient({ apiUrl, onUnauthorized = () => {}, fetchImpl = globalThis.fetch }) {
   const base = apiUrl.replace(/\/$/, '');
   let csrf = null;
   let csrfRequest = null;
+  // 서버에 요청을 보내고 연결 오류와 인증 만료를 처리합니다.
   async function send(path, options = {}) {
     let response;
     try {
@@ -36,6 +39,7 @@ export function createApiClient({ apiUrl, onUnauthorized = () => {}, fetchImpl =
     if (response.status === 401 && !options.silentUnauthorized) onUnauthorized();
     return readJsonResponse(response);
   }
+  // CSRF 토큰을 조회하고 동시 요청에서 조회 결과를 공유합니다.
   async function getCsrf() {
     if (csrf) return csrf;
     if (!csrfRequest) {
@@ -45,6 +49,7 @@ export function createApiClient({ apiUrl, onUnauthorized = () => {}, fetchImpl =
     return csrfRequest;
   }
   return {
+    // 요청 방식에 맞게 JSON 본문과 CSRF 헤더를 구성해 API를 호출합니다.
     async request(path, { method = 'GET', body, silentUnauthorized = false, signal } = {}) {
       if (!path.startsWith('/') || path.startsWith('//')) throw new Error('API 경로가 올바르지 않습니다.');
       method = method.toUpperCase();

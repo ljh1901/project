@@ -10,6 +10,7 @@ public class CommonServiceImpl implements CommonService {
     private final Environment environment;
     public CommonServiceImpl(Environment environment) { this.environment = environment; }
     @Override
+    // 실행 프로필과 프런트용 API 주소 등 공개 설정을 구성합니다.
     public Map<String, Object> getAppConfig() {
         String[] profiles = environment.getActiveProfiles();
         if (profiles.length == 0) profiles = environment.getDefaultProfiles();

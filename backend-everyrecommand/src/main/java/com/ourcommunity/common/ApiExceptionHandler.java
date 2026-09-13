@@ -15,11 +15,13 @@ public class ApiExceptionHandler {
     private static final Logger log = LoggerFactory.getLogger(ApiExceptionHandler.class);
 
     @ExceptionHandler({IllegalArgumentException.class, HttpMessageNotReadableException.class})
+    // 잘못된 입력이나 JSON 형식에 대해 400 응답을 반환합니다.
     public ResponseEntity<Map<String, Object>> badRequest(Exception exception) {
         return ResponseEntity.badRequest().body(ApiResult.error("입력값을 확인해 주세요."));
     }
 
     @ExceptionHandler(AuthenticationException.class)
+    // 인증 실패를 처리하고 인증 시스템 오류는 서버 오류로 전달합니다.
     public ResponseEntity<Map<String, Object>> unauthorized(AuthenticationException exception) {
         if (exception instanceof org.springframework.security.authentication.AuthenticationServiceException) {
             return unexpected(exception);
@@ -28,11 +30,13 @@ public class ApiExceptionHandler {
     }
 
     @ExceptionHandler(AccessDeniedException.class)
+    // 접근 권한이 없는 요청에 403 응답을 반환합니다.
     public ResponseEntity<Map<String, Object>> forbidden(AccessDeniedException exception) {
         return ResponseEntity.status(403).body(ApiResult.error("접근 권한이 없습니다."));
     }
 
     @ExceptionHandler(Exception.class)
+    // 예외의 HTTP 상태를 반영하고 예상하지 못한 오류를 기록합니다.
     public ResponseEntity<Map<String, Object>> unexpected(Exception exception) {
         if (exception instanceof org.springframework.web.ErrorResponse error) {
             return ResponseEntity.status(error.getStatusCode()).body(ApiResult.error("요청 경로와 형식을 확인해 주세요."));

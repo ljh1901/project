@@ -15,6 +15,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
     private final AuthMapper authMapper;
     public AuthServiceImpl(AuthMapper authMapper) { this.authMapper = authMapper; }
     @Override
+    // 사용자 정보를 조회해 Spring Security의 인증 정보로 변환합니다.
     public UserDetails loadUserByUsername(String loginId) {
         Map<String, Object> user = authMapper.findUserByLoginId(loginId);
         if (user == null || user.isEmpty()) throw new UsernameNotFoundException("Invalid credentials");
@@ -24,6 +25,7 @@ public class AuthServiceImpl implements AuthService, UserDetailsService {
                 .disabled(!Boolean.TRUE.equals(user.get("isActive"))).build();
     }
     @Override
+    // 활성 사용자를 확인하고 비밀번호를 제외한 사용자 정보를 반환합니다.
     public Map<String, Object> getCurrentUser(String loginId) {
         Map<String, Object> user = authMapper.findUserByLoginId(loginId);
         if (user == null || !Boolean.TRUE.equals(user.get("isActive"))) {

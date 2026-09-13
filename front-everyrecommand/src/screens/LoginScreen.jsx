@@ -2,12 +2,14 @@ import { useState } from 'react';
 import { useApp } from '../common/AppContext.js';
 import { usePopup } from '../common/PopupProvider.jsx';
 
+// 아이디와 비밀번호를 입력하는 로그인 화면을 표시합니다.
 export function LoginScreen() {
   const { api, setUser } = useApp();
   const popup = usePopup();
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
   const [busy, setBusy] = useState(false);
+  // 입력값을 확인하고 로그인 성공 시 사용자 상태와 화면을 갱신합니다.
   async function login(event) {
     event.preventDefault();
     if (busy) return;

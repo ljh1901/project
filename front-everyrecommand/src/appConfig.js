@@ -1,5 +1,6 @@
 import { ApiError, readJsonResponse } from './common/apiClient.js';
 
+// 백엔드에서 공개 환경 설정을 불러오고 API 주소를 확인합니다.
 export async function loadAppConfig() {
   let response;
   try {

@@ -27,12 +27,14 @@ public class FrontendDevServer {
     public FrontendDevServer(Environment environment) { this.environment = environment; }
 
     @EventListener(ApplicationReadyEvent.class)
+    // 백엔드 기동이 완료되면 실제 서버 포트로 프런트 개발 서버를 시작합니다.
     public void start(ApplicationReadyEvent event) throws IOException, InterruptedException {
         if (event.getApplicationContext() instanceof WebServerApplicationContext context) {
             start(context.getWebServer().getPort());
         }
     }
 
+    // 환경 설정을 읽어 Vite 개발 서버를 실행하고 백엔드 프록시를 연결합니다.
     void start(int backendPort) throws IOException, InterruptedException {
         Path directory = Path.of(environment.getRequiredProperty("app.frontend.directory")).toAbsolutePath().normalize();
         // IDE의 프로젝트 루트 실행과 Gradle의 백엔드 폴더 실행을 모두 지원합니다.
@@ -70,6 +72,7 @@ public class FrontendDevServer {
     }
 
     @PreDestroy
+    // 애플리케이션 종료 시 직접 실행한 프런트 개발 서버를 종료합니다.
     public void stop() {
         stopping = true;
         if (process == null) return;

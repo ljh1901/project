@@ -34,9 +34,11 @@ import jakarta.servlet.http.HttpServletResponse;
 @EnableMethodSecurity
 public class SecurityConfig {
     @Bean
+    // 비밀번호 저장과 검증에 사용할 BCrypt 인코더를 등록합니다.
     PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(12); }
 
     @Bean
+    // 사용자 조회와 비밀번호 검증을 수행할 인증 관리자를 등록합니다.
     AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder encoder) {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsService);
         provider.setPasswordEncoder(encoder);
@@ -44,14 +46,17 @@ public class SecurityConfig {
     }
 
     @Bean
+    // 로그인 인증 정보를 HTTP 세션에 보관하도록 설정합니다.
     SecurityContextRepository securityContextRepository() {
         return new HttpSessionSecurityContextRepository();
     }
 
     @Bean
+    // CSRF 토큰을 HTTP 세션에 보관하도록 설정합니다.
     CsrfTokenRepository csrfTokenRepository() { return new HttpSessionCsrfTokenRepository(); }
 
     @Bean
+    // 로그인 성공 시 세션 ID와 CSRF 토큰을 갱신하도록 설정합니다.
     SessionAuthenticationStrategy sessionAuthenticationStrategy(CsrfTokenRepository csrfRepository) {
         // 수동 JSON 로그인도 세션 ID와 CSRF 토큰을 갱신해야 합니다.
         return new CompositeSessionAuthenticationStrategy(List.of(
@@ -59,6 +64,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    // 허용할 프런트 출처와 API 요청의 CORS 규칙을 설정합니다.
     UrlBasedCorsConfigurationSource corsConfigurationSource(Environment environment) {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(Arrays.stream(environment.getProperty("app.cors.allowed-origins", "")
@@ -73,6 +79,7 @@ public class SecurityConfig {
     }
 
     @Bean
+    // API 접근 권한, 세션 인증, CSRF 및 로그아웃 규칙을 설정합니다.
     SecurityFilterChain securityFilterChain(HttpSecurity http, SecurityContextRepository repository,
             CsrfTokenRepository csrfRepository, UrlBasedCorsConfigurationSource corsSource,
             ObjectMapper objectMapper) throws Exception {
@@ -102,6 +109,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    // 보안 필터에서 발생한 오류를 공통 JSON 응답으로 전송합니다.
     private static void writeError(HttpServletResponse response, ObjectMapper mapper,
             int status, String message) throws java.io.IOException {
         response.setStatus(status);

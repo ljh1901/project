@@ -38,11 +38,13 @@ public class AuthController {
     }
 
     @GetMapping("/csrf")
+    // 변경 요청에 사용할 CSRF 토큰과 헤더 이름을 반환합니다.
     public ResponseEntity<Map<String, Object>> getCsrf(CsrfToken token) {
         return ResponseEntity.ok(ApiResult.success(Map.of("headerName", token.getHeaderName(), "token", token.getToken())));
     }
 
     @PostMapping("/login")
+    // 로그인 정보를 검증하고 인증 결과를 세션에 저장합니다.
     public ResponseEntity<Map<String, Object>> login(@RequestBody Map<String, Object> param,
             HttpServletRequest request, HttpServletResponse response) {
         if (!(param.get("loginId") instanceof String loginId) || loginId.isBlank() || loginId.length() > 50
@@ -62,6 +64,7 @@ public class AuthController {
     }
 
     @GetMapping("/me")
+    // 현재 로그인한 사용자의 공개 정보를 반환합니다.
     public ResponseEntity<Map<String, Object>> getCurrentUser(Authentication authentication) {
         return ResponseEntity.ok(ApiResult.success(authService.getCurrentUser(authentication.getName())));
     }

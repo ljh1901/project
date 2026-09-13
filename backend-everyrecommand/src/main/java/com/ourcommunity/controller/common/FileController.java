@@ -19,22 +19,10 @@ public class FileController {
     private final FileService fileService;
 
     @PostMapping(value = "/fileUpload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    // 업로드 요청을 로그인 사용자 정보와 함께 파일 서비스에 전달합니다.
     public ResponseEntity<Map<String, Object>> fileUpload(
             @RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ApiResult.success(fileService.fileUpload(file, authentication.getName())));
-    }
-
-    @GetMapping("/fileDownload/{fileId}")
-    public ResponseEntity<Resource> fileDownload(
-            @PathVariable String fileId, Authentication authentication) throws IOException {
-        Map<String, Object> result = fileService.fileDownload(fileId, authentication.getName());
-        return ResponseEntity.ok()
-                .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .contentLength((Long) result.get("size"))
-                .cacheControl(CacheControl.noStore())
-                .header(HttpHeaders.CONTENT_DISPOSITION, ContentDisposition.attachment()
-                        .filename((String) result.get("fileName"), StandardCharsets.UTF_8).build().toString())
-                .body((Resource) result.get("resource"));
     }
 }
