@@ -1,0 +1,6 @@
+# 접속 정보는 환경 변수로 주입하며 HTTPS 세션 쿠키를 사용합니다.
+server:
+  servlet:
+    session:
+      cookie:
+        secure: true

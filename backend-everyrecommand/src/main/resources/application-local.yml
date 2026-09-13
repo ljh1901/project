@@ -1,0 +1,15 @@
+server:
+  servlet:
+    session:
+      cookie:
+        secure: false
+app:
+  frontend:
+    auto-start: ${FRONTEND_AUTO_START:true}
+    directory: ${FRONTEND_DIRECTORY:front-everyrecommand}
+    node-executable: ${FRONTEND_NODE_EXECUTABLE:node}
+    dev-host: ${FRONTEND_DEV_HOST:127.0.0.1}
+    dev-port: ${FRONTEND_DEV_PORT:5173}
+    backend-host: ${FRONTEND_BACKEND_HOST:127.0.0.1}
+    backend-proxy-target: ${FRONTEND_BACKEND_PROXY_TARGET:}
+
