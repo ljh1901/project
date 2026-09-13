@@ -5,9 +5,10 @@ spring:
     activate:
       on-profile: [local, mysql]
       
-  # file 관련 사이즈
+  # file 관련 설정
   servlet:
     multipart:
+      enabled: true
       max-file-size: 20MB
       max-request-size: 2GB
 
