@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EveryRecommandApplication<backend-everyrecommand>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.ourcommunity.EveryRecommandApplication",
+            "projectName": "backend-everyrecommand",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

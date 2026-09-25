@@ -44,6 +44,12 @@ public class FrontendDevServer {
                 directory = workingDirectory.getParent().resolve(environment.getRequiredProperty("app.frontend.directory")).normalize();
             }
         }
+        // 프론트 자체의 package.json을 보존한 채 루트 실행 설정만 삭제해 분리할 수 있습니다.
+        Path launchManifest = directory.resolveSibling("package.json");
+        if (!Files.isRegularFile(launchManifest)) {
+            log.info("루트 package.json이 없어 프론트 자동 실행을 건너뜁니다: {}", launchManifest);
+            return;
+        }
         Path vite = directory.resolve("node_modules/vite/bin/vite.js");
         if (!Files.isRegularFile(vite)) {
             throw new IllegalStateException("프론트 경로를 확인하고 front-everyrecommand에서 npm ci를 먼저 실행하세요. FRONTEND_AUTO_START=false로 자동 실행을 끌 수 있습니다.");

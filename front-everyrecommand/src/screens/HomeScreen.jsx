@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { useApp } from '../common/AppContext.js';
 import { usePopup } from '../common/PopupProvider.jsx';
 
-// 로그인한 사용자 정보와 로그아웃 버튼을 표시합니다.
+// 로그인한 사용자 정보와 로그아웃 버튼을 표시
 export function HomeScreen() {
   const { user, api, setUser } = useApp();
   const popup = usePopup();
   const [busy, setBusy] = useState(false);
-  // 사용자 확인 후 로그아웃하고 로그인 화면으로 이동합니다.
+  // 사용자 확인 후 로그아웃하고 로그인 화면으로 이동
   async function logout() {
     if (busy) return;
     setBusy(true);

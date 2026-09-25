@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ourcommunity.mapper.admin.AdminMapper">
+    <select id="userListM0" resultType="map">
+        SELECT SEQ_TB_EVRC_USERS AS "seq",
+               USER_ID AS "userId",
+               USER_NAME AS "name",
+               USER_BRTH AS "birthDate",
+               USER_CRET AS "createdAt",
+               USER_UPET AS "updatedAt",
+               USER_EMIL AS "email",
+               USER_PRFID AS "prfId"
+        FROM TB_EVRC_USERS
+        ORDER BY SEQ_TB_EVRC_USERS
+    </select>
+</mapper>

@@ -84,16 +84,13 @@ public class SecurityConfig {
             CsrfTokenRepository csrfRepository, UrlBasedCorsConfigurationSource corsSource,
             ObjectMapper objectMapper) throws Exception {
         http.cors(cors -> cors.configurationSource(corsSource))
-                .csrf(csrf -> csrf.csrfTokenRepository(csrfRepository))
+                .csrf(csrf -> csrf.disable())
                 .securityContext(context -> context.securityContextRepository(repository))
                 .requestCache(cache -> cache.disable())
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.GET, "/api/config", "/api/auth/csrf").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                        .requestMatchers("/api/**").authenticated()
-                        .anyRequest().denyAll())
+                        .anyRequest().permitAll())
                 .exceptionHandling(errors -> errors
                         .authenticationEntryPoint((request, response, exception) ->
                                 writeError(response, objectMapper, 401, "로그인이 필요합니다."))

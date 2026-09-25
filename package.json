@@ -1,0 +1,10 @@
+{
+  "name": "everyrecommand-local-launcher",
+  "private": true,
+  "description": "이 파일이 있으면 local Spring Boot 실행 시 React 개발 서버도 시작합니다. 삭제하면 자동 실행을 해제합니다.",
+  "scripts": {
+    "frontend:install": "npm --prefix front-everyrecommand ci",
+    "frontend": "npm --prefix front-everyrecommand run dev"
+  }
+}
+

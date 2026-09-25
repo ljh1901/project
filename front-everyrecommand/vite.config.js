@@ -6,9 +6,15 @@ export default defineConfig(({ mode }) => {
   return {
     plugins: [react()],
     server: {
-      proxy: env.BACKEND_PROXY_TARGET
-        ? { '/api': { target: env.BACKEND_PROXY_TARGET, changeOrigin: true } }
-        : undefined,
+      host: '127.0.0.1',
+      port: Number(env.FRONTEND_DEV_PORT || 5446),
+      strictPort: true,
+      proxy: {
+        '/api': {
+          target: env.BACKEND_PROXY_TARGET || `http://127.0.0.1:${env.SERVER_PORT || 8081}`,
+          changeOrigin: true,
+        },
+      },
     },
   };
 });

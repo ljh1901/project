@@ -1,5 +1,7 @@
 # 모두의 추천
 
+> 최신 실행 방법은 [루트 실행 안내](../README.md)를 참고하세요. 루트 package.json을 삭제하면 자동 실행이 해제됩니다. 사용자 요청으로 테스트 폴더·명령·전용 의존성을 제거했으며, 아래 테스트 결과는 이전 작업 기록입니다.
+
 React 웹 프론트엔드와 Spring Boot REST API를 분리한 아이디·비밀번호 로그인 기반 프로젝트입니다.
 카카오·네이버 등 소셜 인증은 구현 범위에 포함하지 않았습니다.
 
@@ -209,7 +211,7 @@ npm ci
 
 ```powershell
 cd C:\project\backend-everyrecommand
-$env:SPRING_PROFILES_ACTIVE = "local"
+$env:SPRING_PROFILES_ACTIVE = "local,postgres"
 .\gradlew.bat bootRun
 ```
 
@@ -228,7 +230,7 @@ $env:SPRING_PROFILES_ACTIVE = "local"
 | FRONTEND_DIRECTORY | front-everyrecommand | 프론트 폴더 이름 또는 절대 경로 |
 | FRONTEND_NODE_EXECUTABLE | node | 필요하면 node.exe 절대 경로 |
 | FRONTEND_DEV_HOST | 127.0.0.1 | 개발 서버 바인딩 주소 |
-| FRONTEND_DEV_PORT | 5173 | 개발 서버 포트 |
+| FRONTEND_DEV_PORT | 5446 | 개발 서버 포트 |
 | FRONTEND_BACKEND_HOST | 127.0.0.1 | 자동 프록시 대상 호스트 |
 | FRONTEND_BACKEND_PROXY_TARGET | 빈 값 | 특수한 프록시 주소를 직접 지정할 때 사용 |
 
@@ -243,7 +245,7 @@ JDK 17을 설치하고 `JAVA_HOME`이 유효한 JDK를 가리키도록 설정합
 
 ```powershell
 cd C:\project\backend-everyrecommand
-$env:SPRING_PROFILES_ACTIVE = "local"
+$env:SPRING_PROFILES_ACTIVE = "local,postgres"
 $env:DB_URL = "jdbc:postgresql://<DB호스트>:5432/<DB이름>"
 $env:DB_USERNAME = "<DB사용자>"
 $env:DB_PASSWORD = "<DB비밀번호>"
@@ -254,7 +256,7 @@ $env:DB_PASSWORD = "<DB비밀번호>"
 |---|---|---|
 | SPRING_PROFILES_ACTIVE | local | local / dev / test / prod |
 | DB_URL / DB_USERNAME / DB_PASSWORD | 없음, 필수 | 서버 전용 DB 설정 |
-| SERVER_PORT | 8080 | 백엔드 포트 |
+| SERVER_PORT | 8081 | 백엔드 포트 |
 | DB_POOL_SIZE | 10 | DB 커넥션 풀 크기 |
 | SESSION_TIMEOUT | 30m | 세션 만료 시간 |
 | PUBLIC_API_URL | /api | 브라우저가 접근하는 API 주소 |

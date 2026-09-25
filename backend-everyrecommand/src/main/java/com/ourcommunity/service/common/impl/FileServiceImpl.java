@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartRequest;
 
 import com.ourcommunity.service.common.FileService;
 
+@Service
 public class FileServiceImpl implements FileService{
     
     @Override
