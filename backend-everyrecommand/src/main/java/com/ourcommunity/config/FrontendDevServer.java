@@ -37,6 +37,7 @@ public class FrontendDevServer {
     // 환경 설정을 읽어 Vite 개발 서버를 실행하고 백엔드 프록시를 연결합니다.
     void start(int backendPort) throws IOException, InterruptedException {
         Path directory = Path.of(environment.getRequiredProperty("app.frontend.directory")).toAbsolutePath().normalize();
+
         // IDE의 프로젝트 루트 실행과 Gradle의 백엔드 폴더 실행을 모두 지원합니다.
         if (!Files.isDirectory(directory) && !Path.of(environment.getRequiredProperty("app.frontend.directory")).isAbsolute()) {
             Path workingDirectory = Path.of("").toAbsolutePath();
@@ -50,10 +51,12 @@ public class FrontendDevServer {
             log.info("루트 package.json이 없어 프론트 자동 실행을 건너뜁니다: {}", launchManifest);
             return;
         }
+
         Path vite = directory.resolve("node_modules/vite/bin/vite.js");
         if (!Files.isRegularFile(vite)) {
             throw new IllegalStateException("프론트 경로를 확인하고 front-everyrecommand에서 npm ci를 먼저 실행하세요. FRONTEND_AUTO_START=false로 자동 실행을 끌 수 있습니다.");
         }
+        
         int frontendPort = environment.getRequiredProperty("app.frontend.dev-port", Integer.class);
         if (frontendPort < 1 || frontendPort > 65535) throw new IllegalArgumentException("Invalid frontend port");
         ProcessBuilder builder = new ProcessBuilder(
@@ -61,13 +64,16 @@ public class FrontendDevServer {
                 "--host", environment.getRequiredProperty("app.frontend.dev-host"),
                 "--port", Integer.toString(frontendPort), "--strictPort");
         builder.directory(directory.toFile()).redirectErrorStream(true).redirectOutput(ProcessBuilder.Redirect.INHERIT);
+
         String target = environment.getProperty("app.frontend.backend-proxy-target", "");
         if (target.isBlank()) {
             String scheme = environment.getProperty("server.ssl.enabled", Boolean.class, false) ? "https" : "http";
             target = scheme + "://" + environment.getRequiredProperty("app.frontend.backend-host") + ":" + backendPort;
         }
+
         builder.environment().put("BACKEND_PROXY_TARGET", target);
         process = builder.start();
+        
         if (process.waitFor(2, TimeUnit.SECONDS)) {
             throw new IllegalStateException("프론트 개발 서버가 종료되었습니다. Node 버전과 프론트 포트 사용 여부를 확인하세요.");
         }

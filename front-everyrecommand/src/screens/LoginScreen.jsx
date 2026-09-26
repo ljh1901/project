@@ -1,10 +1,9 @@
+import { fetchApi } from '../common/api.js';
 import { useState } from 'react';
-import { useApp } from '../common/AppContext.js';
 import { usePopup } from '../common/PopupProvider.jsx';
 
 // 아이디와 비밀번호를 입력하는 로그인 화면을 표시합니다.
-export function LoginScreen() {
-  const { api, setUser } = useApp();
+export function LoginScreen({ setUser }) {
   const popup = usePopup();
   const [loginId, setLoginId] = useState('');
   const [password, setPassword] = useState('');
@@ -19,7 +18,7 @@ export function LoginScreen() {
     }
     setBusy(true);
     try {
-      const user = await api.request('/auth/login', {
+      const user = await fetchApi('/auth/login', {
         method: 'POST', body: { loginId, password }, silentUnauthorized: true,
       });
       setUser(user);

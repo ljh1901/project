@@ -1,16 +1,16 @@
 package com.ourcommunity.common.utils;
 
-import java.beans.JavaBean;
+
 import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 @Component 
 public class MaskingUtils {
+    // @Value static X
     @Value("${pattern.email}")
     private String EMAIL_PATTERN;
     @Value("${pattern.phone}")
@@ -18,7 +18,7 @@ public class MaskingUtils {
     @Value("${pattern.name}")
     private String NAME_PATTERN;
 
-    public String maskingCommon(String params) {
+    public  String maskingCommon(String params) {
         if (StringUtils.isBlank(params)) return "";
         // 1. pattern 저장
         Map<String, Object> patternChk = Map.of("EMAIL_PATTERN", EMAIL_PATTERN,
@@ -60,8 +60,24 @@ public class MaskingUtils {
                 } // end of name_pattern
 
                 // 3. 폰번호 마스킹
+                if(params.matches(String.valueOf(patternChk.get(key)))){
+                    if(key.equals("PHONE_PATTERN")){
+                        // 하이픈('-') 제거
+                        params.replaceAll("-", "");
+                        params = params.substring(0,2)+"*".repeat(4)+params.substring(7);
+                    }
+                }
+                // 4. 아이디 마스킹
+                // if(params.matches(String.valueOf(patternChk.get(key)))){
+                //     if(key.equals("ID_PATTERN")){
+                //         // 하이픈('-') 제거
+                //         params.replaceAll("-", "");
+                //         params = params.substring(0,2)+"*".repeat(4)+params.substring(7);
+                //     }
+                // }
             }
         } // end of while
+        System.out.println(params);
         return params;
     } // end of maskingCommon
 }

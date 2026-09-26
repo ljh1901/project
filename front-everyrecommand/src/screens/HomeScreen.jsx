@@ -1,10 +1,9 @@
+import { fetchApi } from '../common/api.js';
 import { useState } from 'react';
-import { useApp } from '../common/AppContext.js';
 import { usePopup } from '../common/PopupProvider.jsx';
 
 // 로그인한 사용자 정보와 로그아웃 버튼을 표시
-export function HomeScreen() {
-  const { user, api, setUser } = useApp();
+export function HomeScreen({ user, setUser }) {
   const popup = usePopup();
   const [busy, setBusy] = useState(false);
   // 사용자 확인 후 로그아웃하고 로그인 화면으로 이동
@@ -13,7 +12,7 @@ export function HomeScreen() {
     setBusy(true);
     try {
       if (!await popup.confirm('로그아웃하시겠습니까?')) return;
-      await api.request('/auth/logout', { method: 'POST' });
+      await fetchApi('/auth/logout', { method: 'POST' });
       setUser(null);
       location.hash = '/login';
     } catch (error) {

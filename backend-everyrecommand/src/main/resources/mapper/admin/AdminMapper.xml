@@ -4,13 +4,26 @@
     <select id="userListM0" resultType="map">
         SELECT SEQ_TB_EVRC_USERS AS "seq",
                USER_ID AS "userId",
-               USER_NAME AS "name",
+               USER_NAME AS "userName",
                USER_BRTH AS "birthDate",
                USER_CRET AS "createdAt",
                USER_UPET AS "updatedAt",
-               USER_EMIL AS "email",
+               USER_EMIL AS "userEmail",
                USER_PRFID AS "prfId"
         FROM TB_EVRC_USERS
         ORDER BY SEQ_TB_EVRC_USERS
+    </select>
+    <select id="userListP0" parameterType="map" resultType="map">
+            SELECT SEQ_TB_EVRC_USERS AS "seq",
+               USER_ID AS "userId",
+               USER_NAME AS "userName",
+               USER_BRTH AS "birthDate",
+               USER_CRET AS "createdAt",
+               USER_UPET AS "updatedAt",
+               USER_EMIL AS "userEmail",
+               USER_PRFID AS "prfId"
+            FROM TB_EVRC_USERS
+            WHERE SEQ_TB_EVRC_USERS = #{seq}
+            AND USER_ID= #{userId}
     </select>
 </mapper>

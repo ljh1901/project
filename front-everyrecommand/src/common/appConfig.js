@@ -1,4 +1,6 @@
-import { ApiError, readJsonResponse } from './common/apiClient.js';
+import { ApiError, readJsonResponse } from './api.js';
+
+export let appConfig = null;
 
 // 백엔드에서 공개 환경 설정을 불러오고 API 주소를 확인합니다.
 export async function loadAppConfig() {
@@ -14,5 +16,6 @@ export async function loadAppConfig() {
   if (!config || typeof config.apiUrl !== 'string' || !config.apiUrl) {
     throw new ApiError('서버의 API 설정을 확인해 주세요.');
   }
-  return Object.freeze(config);
+  appConfig = Object.freeze(config);
+  return appConfig;
 }
