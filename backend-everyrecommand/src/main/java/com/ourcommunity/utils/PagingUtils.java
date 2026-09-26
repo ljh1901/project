@@ -1,4 +1,4 @@
-package com.ourcommunity.common.utils;
+package com.ourcommunity.utils;
 
 /**
  * @Class

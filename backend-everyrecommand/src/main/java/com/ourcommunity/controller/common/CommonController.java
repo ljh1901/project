@@ -4,7 +4,8 @@ import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import com.ourcommunity.common.ApiResult;
+
+import com.ourcommunity.exception.ApiResult;
 import com.ourcommunity.service.common.CommonService;
 
 import lombok.RequiredArgsConstructor;

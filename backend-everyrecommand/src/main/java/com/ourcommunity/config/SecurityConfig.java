@@ -1,4 +1,4 @@
-package com.ourcommunity.security;
+package com.ourcommunity.config;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -26,7 +26,9 @@ import org.springframework.security.web.csrf.CsrfTokenRepository;
 import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import com.ourcommunity.common.ApiResult;
+
+import com.ourcommunity.exception.ApiResult;
+
 import tools.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
 

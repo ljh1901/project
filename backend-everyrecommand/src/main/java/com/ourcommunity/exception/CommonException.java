@@ -1,4 +1,4 @@
-package com.ourcommunity.common.exception;
+package com.ourcommunity.exception;
 
 
 public class CommonException extends RuntimeException {

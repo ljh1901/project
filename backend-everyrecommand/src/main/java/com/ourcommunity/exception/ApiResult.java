@@ -1,4 +1,4 @@
-package com.ourcommunity.common;
+package com.ourcommunity.exception;
 
 import java.util.Map;
 

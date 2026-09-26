@@ -6,9 +6,9 @@ import java.util.Map;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
 
-import com.ourcommunity.common.utils.MaskingUtils;
 import com.ourcommunity.mapper.admin.AdminMapper;
 import com.ourcommunity.service.admin.AdminService;
+import com.ourcommunity.utils.MaskingUtils;
 
 import lombok.RequiredArgsConstructor;
 

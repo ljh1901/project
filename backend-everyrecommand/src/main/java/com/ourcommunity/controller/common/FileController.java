@@ -8,7 +8,8 @@ import org.springframework.http.*;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import com.ourcommunity.common.ApiResult;
+
+import com.ourcommunity.exception.ApiResult;
 import com.ourcommunity.service.common.FileService;
 import lombok.RequiredArgsConstructor;
 

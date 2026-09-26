@@ -1,4 +1,4 @@
-package com.ourcommunity.common;
+package com.ourcommunity.common.handler;
 
 import java.util.Map;
 import org.slf4j.Logger;
@@ -9,6 +9,8 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+
+import com.ourcommunity.exception.ApiResult;
 
 @RestControllerAdvice
 public class ApiExceptionHandler {
