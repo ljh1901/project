@@ -90,10 +90,7 @@ fetchApi.get('/api/admin/UserListM0')
       </table>
     </div>
     {selectedUser && (
-  <UserListP0
-    userInfo={selectedUser}
-    onClose={() => setSelectedUser(null)}
-  />
+  <UserListP0 userInfo={selectedUser} onClose={() => setSelectedUser(null)}/>
   )}
   </main>;
 }

@@ -54,15 +54,9 @@ export const fetchApi = {
       },
       body: JSON.stringify(params) 
     })
-    .then(res => {
-      if(res.ok){
-        return res;
-      }
-    })
-    .then(res => res.json())
-    .catch(e => {
-      console.error(e);
-    })
+    .then(res => {if(res.ok){
+      return res
+    }}).then(res => res.json())
     },
   //PutMapping
   put(url, params){

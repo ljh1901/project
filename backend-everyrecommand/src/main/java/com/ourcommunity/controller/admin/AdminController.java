@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController 
@@ -29,10 +30,9 @@ public class AdminController {
         
         return ResponseEntity.ok(ApiResult.success(result));
     }
-    @PostMapping("/user/list")
-    public ResponseEntity<Map<String,Object>> userListP0(Map<String, Object> params) {
-
-        // 사용자 목록
+    @PostMapping("/UserListP0")
+    public ResponseEntity<Map<String,Object>> userListP0(@RequestBody Map<String, Object> params) {
+        // 사용자 상세보기
         Map<String,Object> result = adminService.userListP0(params);
         
         return ResponseEntity.ok(ApiResult.success(result));

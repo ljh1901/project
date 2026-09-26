@@ -8,6 +8,8 @@ server:
       cookie:
         secure: false
 app:
+  cors:
+    allowed-origins: ${FRONTEND_ORIGINS:http://${app.frontend.dev-host}:${app.frontend.dev-port},http://localhost:${app.frontend.dev-port}}
   frontend:
     auto-start: ${FRONTEND_AUTO_START:true}
     directory: ${FRONTEND_DIRECTORY:front-everyrecommand}
