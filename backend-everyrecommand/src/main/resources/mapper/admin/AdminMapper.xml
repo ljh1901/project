@@ -26,4 +26,18 @@
             WHERE SEQ_TB_EVRC_USERS = #{seq}
             AND USER_ID= #{userId}
     </select>
+    <select id="boardCategoryM0" resultType="map">
+            SELECT BRD_CTID, 
+	               BRD_CTID_NM,
+	               USE_YN,
+	               BRD_LSMD_FNM,
+	               BRD_LSMD_UNM,
+	               BRD_FRRG_TS,
+	               BRD_LSMD_TS
+            FROM TB_EVRC_BRDCT
+            WHERE 1=1
+            <if test="useYn != null and useYn != ''">
+                AND USE_YN = #{useYn}
+            </if>
+    </select>
 </mapper>

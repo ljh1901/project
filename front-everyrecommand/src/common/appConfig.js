@@ -1,4 +1,4 @@
-import { ApiError, readJsonResponse } from './api.js';
+import { ApiError} from './api.js';
 
 export let appConfig = null;
 
@@ -12,10 +12,9 @@ export async function loadAppConfig() {
   } catch {
     throw new ApiError('설정을 불러오지 못했습니다. 백엔드 연결을 확인해 주세요.');
   }
-  const config = await readJsonResponse(response);
-  if (!config || typeof config.apiUrl !== 'string' || !config.apiUrl) {
-    throw new ApiError('서버의 API 설정을 확인해 주세요.');
+  if (!response.ok) {
+    throw new ApiError('설정을 불러오지 못했습니다.', response.status);
   }
-  appConfig = Object.freeze(config);
+  appConfig = await response.json();
   return appConfig;
 }

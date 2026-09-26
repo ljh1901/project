@@ -27,7 +27,6 @@ import org.springframework.security.web.csrf.HttpSessionCsrfTokenRepository;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.ourcommunity.exception.ApiResult;
 
 import tools.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;
@@ -103,7 +102,7 @@ public class SecurityConfig {
                         .logoutSuccessHandler((request, response, authentication) -> {
                             response.setContentType("application/json");
                             response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-                            objectMapper.writeValue(response.getWriter(), ApiResult.success(java.util.Map.of()));
+                            objectMapper.writeValue(response.getWriter(), java.util.Map.of());
                         }));
         return http.build();
     }
@@ -114,6 +113,6 @@ public class SecurityConfig {
         response.setStatus(status);
         response.setContentType("application/json");
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-        mapper.writeValue(response.getWriter(), ApiResult.error(message));
+        mapper.writeValue(response.getWriter(), java.util.Map.of("status", status, "message", message));
     }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.ourcommunity.exception.ApiResult;
+
 import com.ourcommunity.service.auth.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -41,7 +41,7 @@ public class AuthController {
     @GetMapping("/csrf")
     // 변경 요청에 사용할 CSRF 토큰과 헤더 이름을 반환합니다.
     public ResponseEntity<Map<String, Object>> getCsrf(CsrfToken token) {
-        return ResponseEntity.ok(ApiResult.success(Map.of("headerName", token.getHeaderName(), "token", token.getToken())));
+        return ResponseEntity.ok(Map.of("headerName", token.getHeaderName(), "token", token.getToken()));
     }
 
     @PostMapping("/login")
@@ -61,12 +61,12 @@ public class AuthController {
         context.setAuthentication(authentication);
         SecurityContextHolder.setContext(context);
         contextRepository.saveContext(context, request, response);
-        return ResponseEntity.ok(ApiResult.success(user));
+        return ResponseEntity.ok(user);
     }
 
     @GetMapping("/me")
     // 현재 로그인한 사용자의 공개 정보를 반환합니다.
     public ResponseEntity<Map<String, Object>> getCurrentUser(Authentication authentication) {
-        return ResponseEntity.ok(ApiResult.success(authService.getCurrentUser(authentication.getName())));
+        return ResponseEntity.ok(authService.getCurrentUser(authentication.getName()));
     }
 }

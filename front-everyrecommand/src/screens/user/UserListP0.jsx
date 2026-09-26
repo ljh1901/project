@@ -1,47 +1,55 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchApi } from '../../common/api.js';
 export function UserListP0({ userInfo, onClose }) {
-  
-    const dialogRef = useRef(null);
-    /**
-     * @Parameter
-     * 
-     * Reactive 데이터
-     * Vue : ref({}) == React : useState({})
-     * 
-     * @Setter
-     * user에 대한 Setter
-     * 
-     * String userName;
-     * public void setUser(String userName, ...){
-     *      this.userName = userName;
-     *      ...
-     * }
-     * const [user, setUser] = useState({});
-     *
-     */
-    const [user, setUser] = useState({});
-    fetchApi.post("/api/admin/UserListP0",{
-            seq: userInfo.seq,
-            userId: userInfo.userId
-    }).then(result => result)
-    .then(result => {
-            setUser(result.data);
-    })
-    // vue : watch(() => {},[]) == React : useEffect(() => {},[])
-    useEffect(() => {
-        const dialog = dialogRef.current;
-        dialog.showModal();
-        return () => dialog.close();
-    }, []);
- return (
+
+  const dialogRef = useRef(null);
+  /**
+   * @Parameter
+   * 
+   * Reactive 데이터
+   * Vue : ref({}) == React : useState({})
+   * 
+   * @Setter
+   * user에 대한 Setter
+   * 
+   * String userName;
+   * public void setUser(String userName, ...){
+   *      this.userName = userName;
+   *      ...
+   * }
+   * const [user, setUser] = useState({});
+   *
+   */
+  const [user, setUser] = useState({});
+  const [error, setError] = useState('');
+  useEffect(() => {
+    let active = true;
+    setError('');
+    fetchApi.post("/api/admin/UserListP0", {
+      seq: userInfo.seq,
+      userId: userInfo.userId
+    }).then(result => {
+      if (active) setUser(result || {});
+    }).catch(error => {
+      if (active) setError(error.message);
+    });
+    return () => { active = false; };
+  }, [userInfo.seq, userInfo.userId]);
+  // vue : watch(() => {},[]) == React : useEffect(() => {},[])
+  useEffect(() => {
+    const dialog = dialogRef.current;
+    dialog.showModal();
+    return () => dialog.close();
+  }, []);
+  return (
     <dialog ref={dialogRef} aria-labelledby="user-detail-title"
       onCancel={event => {
         event.preventDefault();
         onClose();
       }}>
       <h2 id="user-detail-title">사용자 상세보기</h2>
-       <table>
+      {error && <p role="alert">{error}</p>}
+      <table>
         <tbody>
           <tr>
             <th>아이디</th>
@@ -60,9 +68,9 @@ export function UserListP0({ userInfo, onClose }) {
       </table>
 
       <div className="dialog-actions">
-      <button type="button" onClick={onClose}>
-        닫기
-      </button>
+        <button type="button" onClick={onClose}>
+          닫기
+        </button>
       </div>
     </dialog>
   );

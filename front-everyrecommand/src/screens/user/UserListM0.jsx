@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 import {UserListP0} from './UserListP0.jsx';
 
 
-
 export function UserListM0() {
   const [users, setUsers] = useState([]);       // 사용자 목록
   const [loading, setLoading] = useState(true); // 조회 중인지
@@ -18,10 +17,10 @@ export function UserListM0() {
 fetchApi.get('/api/admin/UserListM0')
   .then(result => {
     if (!active) return;
-    if (!result.success || !Array.isArray(result.data)) {
+    if (!Array.isArray(result)) {
       throw new Error(result.message || '목록을 불러오지 못했습니다.');
     }
-    setUsers(result.data);
+    setUsers(result);
   })
   .catch(error => {
     if (active) setError(error.message);

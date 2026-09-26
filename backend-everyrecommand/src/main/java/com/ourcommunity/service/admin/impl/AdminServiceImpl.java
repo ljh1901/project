@@ -44,4 +44,16 @@ public class AdminServiceImpl implements AdminService{
         Map<String,Object> result = adminMapper.userListP0(params);
         return result;
     }
+
+    @Override
+    public List<Map<String, Object>> boardCategoryM0() {
+        List<Map<String,Object>> result = adminMapper.boardCategoryM0();
+        return result;
+    }
+
+    @Override
+    public int boardCategoryP0(Map<String, Object> params) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 }

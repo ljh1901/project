@@ -9,7 +9,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.ourcommunity.exception.ApiResult;
+
 import com.ourcommunity.service.common.FileService;
 import lombok.RequiredArgsConstructor;
 
@@ -24,6 +24,6 @@ public class FileController {
     public ResponseEntity<Map<String, Object>> fileUpload(
             @RequestParam("file") MultipartFile file, Authentication authentication) throws IOException {
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ApiResult.success(fileService.fileUpload(file, authentication.getName())));
+                .body(fileService.fileUpload(file, authentication.getName()));
     }
 }
