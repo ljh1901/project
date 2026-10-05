@@ -5,30 +5,14 @@ import {UserListP0} from './UserListP0.jsx';
 
 export function UserListM0() {
   const [users, setUsers] = useState([]);       // 사용자 목록
-  const [loading, setLoading] = useState(true); // 조회 중인지
-  const [error, setError] = useState('');       // 오류 메시지
-  const [revision, setRevision] = useState(0);  // 재조회 실행용 숫자
-
   const [selectedUser, setSelectedUser] = useState(null);
   useEffect(() => {
-    let active = true;
-    setLoading(true);
-    setError('');
-fetchApi.get('/api/admin/UserListM0')
+  fetchApi.get('/api/admin/UserListM0')
   .then(result => {
-    if (!active) return;
-    if (!Array.isArray(result)) {
-      throw new Error(result.message || '목록을 불러오지 못했습니다.');
-    }
     setUsers(result);
+    console.log(result);
   })
-  .catch(error => {
-    if (active) setError(error.message);
-  })
-  .finally(() => {
-    if (active) setLoading(false);
-  });
-  }, [revision]);
+  }, []);
 
   return <main className="user-list">
     <div className="user-list-heading">
@@ -39,16 +23,6 @@ fetchApi.get('/api/admin/UserListM0')
         <h1>사용자 목록</h1>
       </div>
     </div>
-    {loading ?
-      <p role="status">
-        사용자 목록을 불러오고 있습니다.
-      </p> : error ?
-        <p role="alert">
-          {error}
-        </p> :
-        <p className="muted">
-          전체 {users.length}명
-        </p>}
     <div className="user-table-scroll">
       <table className="user-table">
         <thead>
@@ -65,8 +39,7 @@ fetchApi.get('/api/admin/UserListM0')
           </tr>
         </thead>
         <tbody>
-          {!loading && !error && users.map(user =>
-            <tr key={user.seq}>
+          {users.map(user => <tr key={user.seq}>
               <td>{user.seq}</td>
               <td>{user.userId}</td>
               <td>{user.userName}</td>
@@ -81,7 +54,7 @@ fetchApi.get('/api/admin/UserListM0')
                 </button>
               </td>
             </tr>)}
-          {!loading && !error && users.length === 0 &&
+          {users.length === 0 &&
             <tr>
               <td colSpan="6">등록된 사용자가 없습니다.</td>
             </tr>}

@@ -21,26 +21,24 @@ export function UserListP0({ userInfo, onClose }) {
    *
    */
   const [user, setUser] = useState({});
-  const [error, setError] = useState('');
   useEffect(() => {
     let active = true;
-    setError('');
     fetchApi.post("/api/admin/UserListP0", {
       seq: userInfo.seq,
       userId: userInfo.userId
     }).then(result => {
-      if (active) setUser(result || {});
-    }).catch(error => {
-      if (active) setError(error.message);
-    });
+       setUser(result || {});
+    })
     return () => { active = false; };
   }, [userInfo.seq, userInfo.userId]);
+
   // vue : watch(() => {},[]) == React : useEffect(() => {},[])
   useEffect(() => {
     const dialog = dialogRef.current;
     dialog.showModal();
     return () => dialog.close();
   }, []);
+  
   return (
     <dialog ref={dialogRef} aria-labelledby="user-detail-title"
       onCancel={event => {
@@ -48,7 +46,6 @@ export function UserListP0({ userInfo, onClose }) {
         onClose();
       }}>
       <h2 id="user-detail-title">사용자 상세보기</h2>
-      {error && <p role="alert">{error}</p>}
       <table>
         <tbody>
           <tr>

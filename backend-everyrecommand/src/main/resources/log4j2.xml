@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration xmlns="https://logging.apache.org/xml/ns"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="https://logging.apache.org/xml/ns 
+                                   https://logging.apache.org/xml/ns/log4j-config-2.xsd">
+  <Appenders>
+    <!-- 콘솔 출력 -->
+    <Console name="CONSOLE" target="SYSTEM_OUT">
+    <!-- ClassName and Line number -->
+       <PatternLayout pattern="%C{1}.%M %m %ex%n"/>
+    </Console>
+    <!-- 파일 출력 -->
+ <RollingFile name="ERROR_FILE" fileName="logs/error.log" filePattern="logs/error_%d{yyyy-MM-dd}.log.gz">
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n"/>
+        <!-- 언제 새 파일로 갈아탈지 -->
+        <Policies>
+            <TimeBasedTriggeringPolicy interval="1"/>
+            <SizeBasedTriggeringPolicy size="2GB"/>
+        </Policies>
+        <!-- 롤링 파일 최대 개수 -->
+        <DefaultRolloverStrategy max="30">
+          <!-- 삭제 조건 error-*.log.gz 파일 중 마지막 수정일이 30일 지난 파일-->
+          <Delete basePath="logs" maxDepth="1">
+            <IfFileName glob="error_*.log.gz"/>
+            <IfLastModified age="30d"/>
+          </Delete>
+        </DefaultRolloverStrategy>
+    </RollingFile>
+  </Appenders>
+  <Loggers>
+    <!-- 기본 레벨 단위로 실핼  -->
+    <Root level="INFO">
+      <AppenderRef ref="CONSOLE" level="INFO"/>
+    </Root>
+    <!-- 어느 클래스 까지 로거 허용 할지 선택 -->
+    <Logger name="com.ourcommunity.service" level="DEBUG">
+      <AppenderRef ref="CONSOLE" level="DEBUG"/>
+    </Logger>
+    <Logger name="com.ourcommunity" level="WARN" additivity="false">
+        <AppenderRef ref="CONSOLE"/>
+        <AppenderRef ref="ERROR_FILE" level="ERROR"/>
+    </Logger>
+  </Loggers>
+</Configuration>

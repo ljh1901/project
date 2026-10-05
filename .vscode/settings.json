@@ -1,3 +1,9 @@
 {
-    "java.debug.settings.onBuildFailureProceed": true
+    "java.debug.settings.onBuildFailureProceed": true,
+    "java.import.gradle.java.home": "C:\\Users\\dkds1\\scoop\\apps\\openjdk17\\17.0.2-8",
+    "terminal.integrated.defaultProfile.windows": "JavaSE-17 LTS",
+    "terminal.integrated.env.windows": {
+        "JAVA_HOME": "C:\\Users\\dkds1\\scoop\\apps\\openjdk17\\17.0.2-8",
+        "PATH": "C:\\Users\\dkds1\\scoop\\apps\\openjdk17\\17.0.2-8\\bin;${env:PATH}"
+    }
 }

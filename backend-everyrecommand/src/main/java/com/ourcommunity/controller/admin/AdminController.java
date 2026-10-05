@@ -5,16 +5,20 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import com.ourcommunity.service.admin.AdminService;
+import com.ourcommunity.service.admin.impl.AdminServiceImpl;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
 
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,21 +27,26 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 
-
-@Slf4j 
 @RestController 
-@RequiredArgsConstructor
 @RequestMapping("/api/admin")
 public class AdminController {
 
     private final AdminService adminService;
+    private final Logger log = LoggerFactory.getLogger(AdminController.class);
+
+    public AdminController(AdminServiceImpl adminServiceImpl) {
+        this.adminService = adminServiceImpl;
+    }
 
 
     // 사용자 목록 조회
     @GetMapping("/UserListM0")
     public ResponseEntity<List<Map<String, Object>>> userListM0() {
         List<Map<String,Object>> result = adminService.userListM0();
-        
+        log.info("1. result 개수 조회 시작");
+        log.info("==================================================================");
+        log.info("result 개수 출력 : {} ", result.toString());
+        log.info("==================================================================");
         return ResponseEntity.ok(result);
     }
 
@@ -52,8 +61,9 @@ public class AdminController {
     // 게시판 카테고리 목록 조회
     @GetMapping("/BoardCategoryM0")
     public ResponseEntity<List<Map<String, Object>>> boardCategoryListM0(Map<String, Object> params) {
+
         List<Map<String, Object>> result = adminService.boardCategoryM0();
-        log.error("result = {} : ", result);
+        log.info("result = {}", result);
         ResponseEntity<List<Map<String,Object>>> res = new ResponseEntity<>(result, HttpStatus.OK);
         return res;
     }
