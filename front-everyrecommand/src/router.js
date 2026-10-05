@@ -1,7 +1,8 @@
 import { createElement } from 'react';
-import { createBrowserRouter, Route, Routes } from 'react-router-dom';
+import { createBrowserRouter, redirect, RouterProvider } from 'react-router-dom';
 import { UserListM0 } from './screens/user/UserListM0.jsx';
 import { BoardListM0 } from './screens/board/BoardListM0.jsx';
+import Main from './Main.jsx';
 /**
  * ===================================================================
  * 1. 정적 라우트 정의
@@ -34,19 +35,39 @@ import { BoardListM0 } from './screens/board/BoardListM0.jsx';
  * 
  *  */ 
 
+const router = createBrowserRouter([
+    {
+      path: "/",
+      /**   1. 새로고침 하면서 이동
+       *    history.pushState(null, "", "/main") 
+       *    location.href=""
+       *    
+       *    2. SPA 방식 이동
+       *    history.replaceState(null, "", "/main")
+      */
+      loader: () => redirect("/main")
+    },
+    {
+      path: "/main",
+      Component: Main,
+      children: [
+        {
+          index: true,
+          Component: BoardListM0
+        },
+        {
+          path: "user",
+          Component: UserListM0
+        },
+        {
+          path: "board",
+          Component: BoardListM0
+        }
+      ]
+    },
+  ]);
+
 function Router() {
-  const router = createBrowserRouter([
-    {
-      id: 'root',
-      path: '/',
-      Component: UserListM0
-    },
-    {
-      
-    },
-    {
-      //UserListM0에 갖다붙일 컴포넌트
-    }
-  ])
+  return createElement(RouterProvider, { router });
 }
 export {Router};

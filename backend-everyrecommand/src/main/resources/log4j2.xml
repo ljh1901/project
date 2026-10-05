@@ -7,11 +7,11 @@
     <!-- 콘솔 출력 -->
     <Console name="CONSOLE" target="SYSTEM_OUT">
     <!-- ClassName and Line number -->
-       <PatternLayout pattern="%C{1}.%M %m %ex%n"/>
+       <PatternLayout pattern="%C{1}.%M %m %ex%n" charset="UTF-8"/>
     </Console>
     <!-- 파일 출력 -->
  <RollingFile name="ERROR_FILE" fileName="logs/error.log" filePattern="logs/error_%d{yyyy-MM-dd}.log.gz">
-        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n"/>
+        <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5p %c - %m%n" charset="UTF-8"/>
         <!-- 언제 새 파일로 갈아탈지 -->
         <Policies>
             <TimeBasedTriggeringPolicy interval="1"/>
@@ -27,15 +27,22 @@
         </DefaultRolloverStrategy>
     </RollingFile>
   </Appenders>
+  <!-- 단계 및 순서 
+   -> TRACE `반복문이나 메서드 내부의 단계까지 자세히 추적` 
+   -> DEBUG `DEBUG`가 개발 중 확인할 값 
+   -> INFO 
+   -> WARN 
+   -> ERROR -->
   <Loggers>
     <!-- 기본 레벨 단위로 실핼  -->
     <Root level="INFO">
       <AppenderRef ref="CONSOLE" level="INFO"/>
     </Root>
-    <!-- 어느 클래스 까지 로거 허용 할지 선택 -->
+    <!-- 어느 클래스 까지 로거 허용 할지 선택  Root보다 강하게 실행 -->
     <Logger name="com.ourcommunity.service" level="DEBUG">
       <AppenderRef ref="CONSOLE" level="DEBUG"/>
     </Logger>
+    <Logger name="com.ourcommunity.controller.admin.AdminController" level="INFO"/>
     <Logger name="com.ourcommunity" level="WARN" additivity="false">
         <AppenderRef ref="CONSOLE"/>
         <AppenderRef ref="ERROR_FILE" level="ERROR"/>

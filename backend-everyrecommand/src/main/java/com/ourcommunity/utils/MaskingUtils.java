@@ -77,7 +77,6 @@ public class MaskingUtils {
                 // }
             }
         } // end of while
-        System.out.println(params);
         return params;
     } // end of maskingCommon
 }
