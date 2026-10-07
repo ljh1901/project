@@ -18,3 +18,7 @@ app:
     dev-port: ${FRONTEND_DEV_PORT:5446}
     backend-host: ${FRONTEND_BACKEND_HOST:127.0.0.1}
     backend-proxy-target: ${FRONTEND_BACKEND_PROXY_TARGET:}
+
+file:
+  upload:
+      dir: /upload/files/

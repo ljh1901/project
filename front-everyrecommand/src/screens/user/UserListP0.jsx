@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { fetchApi } from '../../common/api.js';
+import { fetchApi } from '../../js/common/api';
 export function UserListP0({ userInfo, onClose }) {
 
   const dialogRef = useRef(null);

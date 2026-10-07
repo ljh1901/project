@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <meta charset="UTF-8" />
+    <title>목록</title>
+  </head>
+  <body>
+    <a th:href="@{/}">확인하기</a>
+
+    <table>
+      <thead>
+        <tr>
+          <th>제목</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% comment %} 
+        타임리프 기본 형태
+| `${...}` | 모델의 변수 값 조회 | `${item.title}` |
+| `#{...}` | 메시지 파일의 문구 조회 | `#{board.title}` |
+| `th:text` | 값을 일반 텍스트로 표시 | HTML 태그도 글자로 표시 | [[${item.title}]]
+| `th:utext` | 값을 HTML로 해석해서 표시 | `<b>` 등이 실제 태그로 적용 | [(${...})]
+
+<a th:href="@{/url(params=${item.id})}">확인</a>
+<!-- /url?params=123 -->
+
+여러 개라면 쉼표로 구분
+<a th:href="@{/url(id=${item.id}, page=1)}">확인</a>
+<!-- /url?id=123&page=1 -->
+        {% endcomment %}
+        <tr th:each="item : ${list}">
+          <td th:text="${item.title}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>

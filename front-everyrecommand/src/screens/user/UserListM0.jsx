@@ -1,7 +1,6 @@
-import { fetchApi } from '../../common/api.js';
 import { useEffect, useState } from 'react';
 import {UserListP0} from './UserListP0.jsx';
-
+import { fetchApi } from '../../js/common/api.js';
 
 export function UserListM0() {
   const [users, setUsers] = useState([]);       // 사용자 목록

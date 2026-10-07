@@ -1,6 +1,6 @@
 import { useState } from 'react';
-
-function useBoardListP0() {
+import {fetchApi} from './common/api.js';
+function useBoardListP0(onClose) {
     const [params, setParams] = useState({
         brdCtidNm: '',
         useYn: 'Y',
@@ -12,13 +12,14 @@ function useBoardListP0() {
         setParams(prev => ({ ...prev, [name]: value }));
     }
 
-    function addCategory(params){
-        console.log(params);
+    function addCategory(params) {
+        return fetchApi.post("/api/admin/BoardCategoryP0", params);
     }
 
     // 카테고리 생성 함수
-    function handleAddCategory() {
-        addCategory(params);
+    async function handleAddCategory() {
+        await addCategory(params);
+        onClose();
     }
     return { params, handleChange, handleAddCategory };
 }

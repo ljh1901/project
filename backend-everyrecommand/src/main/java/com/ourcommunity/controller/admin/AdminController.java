@@ -31,9 +31,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api/admin")
 public class AdminController {
 
+    // 1. @Autowired 사용 가능 
+    // 2. @RequiredArgsConstructor 사용 가능
     private final AdminService adminService;
     private final Logger log = LoggerFactory.getLogger(AdminController.class);
-
+    
     public AdminController(AdminServiceImpl adminServiceImpl) {
         this.adminService = adminServiceImpl;
     }
@@ -71,6 +73,8 @@ public class AdminController {
     @PostMapping("/BoardCategoryP0")
     public ResponseEntity<Integer> boardCategoryP0(@RequestBody Map<String,Object> params) {
         Integer result = adminService.boardCategoryP0(params);
+        log.info("카테고리 생성결과 result => {}",result);
+        log.info("카테고리 생성결과 result => {}",params);
         return ResponseEntity.ok().body(result);
     }
     // 게시판 카테고리 수정

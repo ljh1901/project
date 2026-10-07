@@ -1,5 +1,5 @@
 ﻿import { useEffect, useState } from 'react';
-import { fetchApi } from '../../common/api.js';
+import { fetchApi } from '../../js/common/api.js';
 import { BoardListP0 } from './BoardListP0.jsx';
 
 export function BoardListM0() {

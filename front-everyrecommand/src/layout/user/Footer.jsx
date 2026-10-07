@@ -3,7 +3,7 @@ function Footer(){
     return <footer>
         <div className="footer__container">
             <div>
-                <Link to="/AD/adminLogin">관리자 모드</Link>
+                <a href="/AD/adminLogin">관리자 모드</a>
             </div>
             <div>
                 <label>&copy; EveryRecommand</label>

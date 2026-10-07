@@ -10,14 +10,16 @@ import com.ourcommunity.mapper.admin.AdminMapper;
 import com.ourcommunity.service.admin.AdminService;
 import com.ourcommunity.utils.MaskingUtils;
 
-import lombok.RequiredArgsConstructor;
-
 @Service
-@RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService{
 
     private final AdminMapper adminMapper;
     private final MaskingUtils maskingUtils;
+
+    public AdminServiceImpl(AdminMapper adminMapper, MaskingUtils maskingUtils) {
+        this.adminMapper = adminMapper;
+        this.maskingUtils = maskingUtils;
+    }
 
     @Override
     public List<Map<String, Object>> userListM0() {
@@ -53,7 +55,7 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public int boardCategoryP0(Map<String, Object> params) {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 }

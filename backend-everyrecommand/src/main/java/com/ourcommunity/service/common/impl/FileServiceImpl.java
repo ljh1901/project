@@ -1,45 +1,64 @@
 package com.ourcommunity.service.common.impl;
-
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartRequest;
 
 import com.ourcommunity.service.common.FileService;
 
 @Service
 public class FileServiceImpl implements FileService{
-    
+    @Value("${}")
+    String UPLOAD_URL;
+
     @Override
     // 파일 다운로드 처리용 메서드로, 현재 파일 쓰기 코드가 들어 있는 작성 중 상태입니다.
     public Map<String, Object> fileDownload(String fileId, String owner, MultipartFile upload) throws IOException {
         try{
-            File f = new File("/upload");
-            if(f.isDirectory()){
-                for(File getFile:f.listFiles()){
-                    if(getFile.getName()==fileId){
-                        FileOutputStream fos = new FileOutputStream(f);
-                        fos.write(upload.getBytes());
-                        fos.close();
-                    }
-                }
-            }
+
         }
         catch(Exception e){
 
         }
         return null;
     }
+
+
+    // 파일 업로드 처리용 메서드
     @Override
-    // 파일 업로드 처리용 메서드로, 저장 로직은 아직 구현되지 않았습니다.
-    public Map<String, Object> fileUpload(MultipartFile file, String owner) throws IOException {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public int fileUpload(MultipartFile[] params) throws IOException {
+        File fileDir = new File(UPLOAD_URL);
+        String[] extArr = new String[]{"hwp","docx","pdf","hwpx","txt","xlsx"};
+        if(fileDir.exists()){
+            if(fileDir.isDirectory()){
+                for(MultipartFile tmpFile : params){
+                    for(String ext : extArr){
+                        String extension = tmpFile.getOriginalFilename().substring(tmpFile.getOriginalFilename().lastIndexOf(".")+1);
+                        if(!ext.equals(extension)){
+                            throw new IOException("hwp, docx, pdf, hwpx, txt, xlsx 파일만 첨부 가능합니다.");
+                        }
+                    }
+                    // 1. 복사용지 생성    
+                    File copyFile = new File(fileDir,UUID.randomUUID().toString());
+                    // 2. 복사기 생성 및 복사
+                    FileOutputStream fos = new FileOutputStream(copyFile);
+                    // 3. 복사
+                    fos.write(tmpFile.getBytes());
+                    // 4. 복사기 전원 종료
+                    fos.close();
+                }
+            }
+        }
+        else{
+            fileDir.mkdir();
+            return fileUpload(params);
+        }
+        return params.length;
+    };
 }
