@@ -26,8 +26,9 @@ public class CommonServiceImpl implements CommonService {
         if (profiles.length == 0)
             profiles = environment.getDefaultProfiles();
         // 공개할 항목만 선택해 DB·서버 비밀 설정이 프론트로 전달되지 않게 합니다.
-        return Map.of("appName", "모두의 추천", "profile", String.join(",", profiles),
-                "apiUrl", environment.getProperty("app.frontend.api-url", "/api"),
-                "websocketUrl", environment.getProperty("app.frontend.websocket-url", ""));
+        return Map.of("appName", "모두의 추천", 
+                      "profile", String.join(",", profiles),
+                       "apiUrl", environment.getProperty("app.frontend.api-url", "/api"),
+                 "websocketUrl", environment.getProperty("app.frontend.websocket-url", ""));
     }
 }

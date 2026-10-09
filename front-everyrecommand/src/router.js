@@ -83,6 +83,11 @@ const adminRoutes = Object.entries(screens).map(([file, load]) => {
  * 1-3. 어드민 로그인 화면
  **/
 const router = createBrowserRouter([
+  {
+    id: "root",
+    path: "error",
+    // Component: Error
+  },
     {
       path: "/",
       /**   1. 새로고침 하면서 이동

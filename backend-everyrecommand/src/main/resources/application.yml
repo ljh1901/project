@@ -1,9 +1,19 @@
+#================================================================
+# Application 설정
+#================================================================
 spring:
   application:
     name: backend-everyrecommand
 
   profiles:
-    default: local, postgres
+    # 활성화할 profile 지정
+    active: local
+    # 활성화 된 profile이 없다면 기본 값 지정
+    default: local
+    # 프로필 목록
+    group:
+      local: [local, postgres]
+      dev: [dev, postgres]
 
 #================================
 # 파일 관련 설정

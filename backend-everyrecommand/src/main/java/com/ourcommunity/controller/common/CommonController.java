@@ -15,12 +15,12 @@ import lombok.RequiredArgsConstructor;
 public class CommonController {
     private final CommonService commonService;
 
-    // 프런트에서 사용할 공개 환경 설정을 응답합니다.
+    // 프론트에서 사용할 공개 환경 설정을 응답
     @GetMapping("/api/config")
     public ResponseEntity<Map<String, Object>> getAppConfig() {
         return ResponseEntity.ok(commonService.getAppConfig());
     }
-
+    
     // 파일 관련 응답
     
 }

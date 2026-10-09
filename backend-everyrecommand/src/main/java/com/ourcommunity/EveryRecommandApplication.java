@@ -3,11 +3,16 @@ package com.ourcommunity;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
+/**
+ * 기본 SpringBoot 진입점
+ * 
+ * MapperScan("package") 
+ * Mapper.class Path를 읽기 위한 경로
+ * Spring의 Bean 읽기 / Component / AutoScan 역할
+ */
 @SpringBootApplication
 @MapperScan("com.ourcommunity.mapper")
 public class EveryRecommandApplication {
-    // Spring Boot 백엔드 애플리케이션을 시작합니다.
     public static void main(String[] args) {
         SpringApplication.run(EveryRecommandApplication.class, args);
     }

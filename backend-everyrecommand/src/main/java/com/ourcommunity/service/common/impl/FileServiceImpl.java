@@ -2,7 +2,6 @@ package com.ourcommunity.service.common.impl;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
@@ -14,7 +13,7 @@ import com.ourcommunity.service.common.FileService;
 
 @Service
 public class FileServiceImpl implements FileService{
-    @Value("${}")
+    @Value("${file.upload.dir}")
     String UPLOAD_URL;
 
     @Override
