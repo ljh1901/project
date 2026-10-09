@@ -1,7 +1,7 @@
 package com.ourcommunity.exception;
 
 
-public class CommonException extends RuntimeException {
+public class CommonException extends RuntimeException{
       private final String code;
 
       public CommonException(String message, String code) {

@@ -5,18 +5,22 @@
     font-synthesis: none;
     line-height: 1.6
 }
-
 * {
     box-sizing: border-box
 }
 
 body {
-    margin: 0
+    margin: 0;
+    caret-color: transparent;
 }
 
-button,
-input {
-    font: inherit
+button {
+    color: rgb(98, 79, 221);
+}
+input, textarea, div[type="contentEditable"],
+[contenteditable="true"]{
+    font: inherit;
+    caret-color: auto;
 }
 
 button {

@@ -5,6 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#21594d" />
     <title>모두의 추천</title>
+      <script>
+        const cssList=["../src/css/styles.css"];
+    function loadScript(cssList){
+      let linkTag = document.createElement('link');
+      for(const linkElement of cssList){
+        linkTag.rel='stylesheet';
+        linkTag.href=linkElement;
+        linkTag.type='text/css';
+        document.head.appendChild(linkTag);
+      }
+    }
+    loadScript(cssList);
+  </script>
   </head>
   <body>
     <div id="root"></div>

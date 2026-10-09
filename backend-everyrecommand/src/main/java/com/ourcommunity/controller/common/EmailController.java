@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class EmailController {
     @PostMapping("/send")
     public String postMethodName(@RequestBody String entity) {
-        //TODO: process POST request
         
         return entity;
     }
