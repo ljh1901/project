@@ -17,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -78,11 +79,11 @@ public class AdminController {
         return ResponseEntity.ok().body(result);
     }
     // 게시판 카테고리 수정
-    @PutMapping("path/{id}")
-    public String putMethodName(@PathVariable String id, @RequestBody String entity) {
-        //TODO: process PUT request
-        
-        return entity;
+    @PutMapping("/BoardCategoryM0")
+    public ResponseEntity<?> putMethodName(@RequestBody Map<String,Object> params) {
+        log.info("parameter 값 : {} ",params.toString());
+        log.info(MapUtils.getString(params, "brdCtid"));
+        return ResponseEntity.ok().build();
     }
     
 }

@@ -1,8 +1,8 @@
 import { useRef, useEffect } from 'react';
 import { useBoardListP0 } from '../../js/boardListP0.js';
-function BoardListP0({onClose}) {
+function BoardListP0({onClose, onCreated}) {
     const dialogRef = useRef(null);
-    const { params, handleChange, handleAddCategory } = useBoardListP0(onClose);
+    const { params, handleChange, handleAddCategory } = useBoardListP0(onClose, onCreated);
 
     // vue : watch(() => {},[]) == React : useEffect(() => {},[])
     useEffect(() => {

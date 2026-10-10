@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import {fetchApi} from './common/api.js';
-function useBoardListP0(onClose) {
+function useBoardListP0(onClose, onCreated) {
     const [params, setParams] = useState({
         brdCtidNm: '',
         useYn: 'Y',
@@ -20,6 +20,7 @@ function useBoardListP0(onClose) {
     async function handleAddCategory() {
         await addCategory(params);
         onClose();
+        await onCreated?.();
     }
     return { params, handleChange, handleAddCategory };
 }

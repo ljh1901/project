@@ -47,8 +47,8 @@ app:
   cors:
     allowed-origins: ${FRONTEND_ORIGINS:}
   encryption:
-    password: ${APP_ENCRYPTION_PASSWORD}
-    salt: ${APP_ENCRYPTION_SALT}
+    password: SSVzkMyAU+Aj+TiK8d+eZJjTKgp0BuGvLAC7mETAO8Q=
+    salt: 6e6528ac2eb9b89c166c6c372f4d971c
 #===========================================
 #Pattern 검사
 #===========================================

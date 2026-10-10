@@ -55,7 +55,7 @@ public class AdminServiceImpl implements AdminService{
 
     @Override
     public int boardCategoryP0(Map<String, Object> params) {
-
-        return 0;
+        int result = adminMapper.boardCategoryP0(params);
+        return result;
     }
 }

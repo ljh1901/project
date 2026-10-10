@@ -3,6 +3,8 @@ package com.ourcommunity;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.ourcommunity.common.security.SecurityEncryptor;
 /**
  * 기본 SpringBoot 진입점
  * 

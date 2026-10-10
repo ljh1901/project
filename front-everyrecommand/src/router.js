@@ -1,7 +1,7 @@
 import { createElement } from 'react';
 import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
 import { UserListM0 } from './screens/user/UserListM0.jsx';
-import { BoardListM0 } from './screens/board/BoardListM0.jsx';
+import { BoardCategoryListM0 } from './screens/board/BoardCategoryListM0.jsx';
 import AdminMain from './layout/admin/AdminMain.jsx';
 import Main from './layout/user/UserMain.jsx';
 /**
@@ -106,7 +106,7 @@ const router = createBrowserRouter([
         { 
           path: "board",
           index: true,
-          Component: BoardListM0
+          Component: BoardCategoryListM0
         },
       ]
     },

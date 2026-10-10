@@ -40,4 +40,15 @@
                 AND USE_YN = #{useYn}
             </if>
     </select>
+    <insert id="boardCategoryP0" parameterType="map">
+        INSERT INTO TB_EVRC_BRDCT(brd_ctid, 
+        brd_ctid_nm,
+         use_yn, 
+         brd_lsmd_fnm, 
+         brd_lsmd_unm, 
+         brd_frrg_ts, 
+         brd_lsmd_ts)
+            VALUES((SELECT COALESCE(MAX(BRD_CTID),0)+1 
+                    FROM TB_EVRC_BRDCT), #{brdCtidNm}, #{useYn}, 'ADMIN','ADMIN',CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
+    </insert>
 </mapper>
