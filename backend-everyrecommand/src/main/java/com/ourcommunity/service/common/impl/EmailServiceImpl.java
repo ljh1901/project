@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 
-import com.ourcommunity.common.variable.EmailSend;
+import com.ourcommunity.common.VO.EmailSend;
 import com.ourcommunity.exception.CommonException;
 import com.ourcommunity.service.common.EmailService;
 

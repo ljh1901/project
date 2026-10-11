@@ -8,8 +8,8 @@ export function UserListM0() {
   useEffect(() => {
   fetchApi.get('/api/admin/users')
   .then(result => {
-    setUsers(result);
     console.log(result);
+    setUsers(result);
   })
   }, []);
 
@@ -38,15 +38,15 @@ export function UserListM0() {
           </tr>
         </thead>
         <tbody>
-          {users.map(user => <tr key={user.seq}>
-              <td>{user.seq}</td>
+          {users.map(user => <tr key={user.seqTbEvrcUsers}>
+              <td>{user.seqTbEvrcUsers}</td>
               <td>{user.userId}</td>
               <td>{user.userName}</td>
-              <td>{user.birthDate.substring(0,user.birthDate.indexOf('T'))}</td>
-              <td>{user.userEmail}</td>
-              <td>{user.prfId || '-'}</td>
-              <td>{user.createdAt.substring(0,user.createdAt.indexOf('T'))}</td>
-              <td>{user.updatedAt.substring(0,user.updatedAt.indexOf('T'))}</td>
+              <td>{user.userBrth.substring(0,user.userBrth.indexOf('T'))}</td>
+              <td>{user.userEmil}</td>
+              <td>{user.userPrfid || '-'}</td>
+              <td>{user.userCret.substring(0,user.userCret.indexOf('T'))}</td>
+              <td>{user.userUpet.substring(0,user.userUpet.indexOf('T'))}</td>
               <td>
                 <button type="button" onClick={() => setSelectedUser(user)}>
                   상세보기

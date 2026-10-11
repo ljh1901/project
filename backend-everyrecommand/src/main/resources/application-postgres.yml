@@ -25,6 +25,7 @@ spring:
 mybatis:
     # mapper 클래스 위치 경로
     mapper-locations: classpath:mapper/**/*.xml
+    type-aliases-package: com.ourcommunity.mapper
     # camelCase Map<String, Object>param 값
     configuration:
         map-underscore-to-camel-case: true

@@ -24,13 +24,14 @@ export function UserListP0({ userInfo, onClose }) {
   useEffect(() => {
     let active = true;
     fetchApi.post("/api/admin/users/detail", {
-      seq: userInfo.seq,
+      seq: userInfo.seqTbEvrcUsers,
       userId: userInfo.userId
     }).then(result => {
+      console.log(result);
        setUser(result || {});
     })
     return () => { active = false; };
-  }, [userInfo.seq, userInfo.userId]);
+  }, [userInfo.seqTbEvrcUsers, userInfo.userId]);
 
   // vue : watch(() => {},[]) == React : useEffect(() => {},[])
   useEffect(() => {
@@ -57,11 +58,11 @@ export function UserListP0({ userInfo, onClose }) {
             <th>이름</th>
             <td>{user.userName}</td>
           </tr>
-          <tr><th scope="row">생년월일</th><td>{user.birthDate?.split('T')[0] || '-'}</td></tr>
-          <tr><th scope="row">이메일</th><td>{user.userEmail || '-'}</td></tr>
-          <tr><th scope="row">전화번호</th><td>{user.prfId || '-'}</td></tr>
-          <tr><th scope="row">최초 생성일</th><td>{user.createdAt?.split('T')[0] || '-'}</td></tr>
-          <tr><th scope="row">최종 수정일</th><td>{user.updatedAt?.split('T')[0] || '-'}</td></tr>
+          <tr><th scope="row">생년월일</th><td>{user.userBrth?.split('T')[0] || '-'}</td></tr>
+          <tr><th scope="row">이메일</th><td>{user.userEmil || '-'}</td></tr>
+          <tr><th scope="row">전화번호</th><td>{user.userPrfid || '-'}</td></tr>
+          <tr><th scope="row">최초 생성일</th><td>{user.userCret?.split('T')[0] || '-'}</td></tr>
+          <tr><th scope="row">최종 수정일</th><td>{user.userUpet?.split('T')[0] || '-'}</td></tr>
         </tbody>
       </table>
 

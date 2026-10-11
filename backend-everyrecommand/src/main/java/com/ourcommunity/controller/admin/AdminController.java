@@ -25,7 +25,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController 
@@ -48,7 +47,7 @@ public class AdminController {
         List<Map<String,Object>> result = adminService.userListM0();
         log.info("1. result 개수 조회 시작");
         log.info("==================================================================");
-        log.info("result 개수 출력 : {} ", result.toString());
+        log.info("result 개수 출력 : {}", result.size());
         log.info("==================================================================");
         return ResponseEntity.ok(result);
     }
@@ -70,6 +69,7 @@ public class AdminController {
         ResponseEntity<List<Map<String,Object>>> res = new ResponseEntity<>(result, HttpStatus.OK);
         return res;
     }
+
     // 게시판 카테고리 생성
     @PostMapping("/board-categories")
     public ResponseEntity<Integer> boardCategoryP0(@RequestBody Map<String,Object> params) {
@@ -78,11 +78,11 @@ public class AdminController {
         log.info("카테고리 생성결과 result => {}",params);
         return ResponseEntity.ok().body(result);
     }
+
     // 게시판 카테고리 수정
     @PutMapping("/board-categories")
     public ResponseEntity<?> putMethodName(@RequestBody Map<String,Object> params) {
         log.info("parameter 값 : {} ",params.toString());
-        log.info(MapUtils.getString(params, "brdCtid"));
         return ResponseEntity.ok().build();
     }
     

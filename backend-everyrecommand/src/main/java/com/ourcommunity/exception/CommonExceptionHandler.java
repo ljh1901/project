@@ -13,7 +13,7 @@ public class CommonExceptionHandler {
 
     @ExceptionHandler(CommonException.class)
     public ResponseEntity<String> handleCommonException(CommonException e) {
-
+        log.error(e.getClass()+": "+e.getCode(), e.getMessage());
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                              .body("[" + e.getCode() + "] " + e.getMessage());
     }

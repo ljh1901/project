@@ -27,14 +27,14 @@ public class AdminServiceImpl implements AdminService{
         for (Map<String, Object> tmp : result) {
             tmp.put("userName", maskingUtils.maskingCommon(MapUtils.getString(tmp, "userName")));
 
-            String userEmail = maskingUtils.maskingCommon(MapUtils.getString(tmp, "userEmail"));
+            String userEmail = maskingUtils.maskingCommon(MapUtils.getString(tmp, "userEmil"));
             if (!userEmail.isEmpty()) {
-                tmp.put("userEmail", userEmail);
+                tmp.put("userEmil", userEmail);
             }
             
-            String prfId = maskingUtils.maskingCommon(MapUtils.getString(tmp, "prfId"));
+            String prfId = maskingUtils.maskingCommon(MapUtils.getString(tmp, "userPrfid"));
             if(!prfId.isEmpty()){
-                tmp.put("prfId", prfId);
+                tmp.put("userPrfid", prfId);
             }
         }
         return result;

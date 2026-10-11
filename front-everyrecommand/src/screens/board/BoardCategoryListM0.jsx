@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import { BoardListP0 } from './BoardListP0.jsx';
 import { formatTs } from '../../js/common/timeUtils.js';
 import { popUpOpen } from '../../js/user/popUp.js';
+import { selectCheckBox } from '../../js/admin/boardCategoryListM0.js';
+import '../../css/boardCategoryListM0.css';
 function BoardCategoryListM0() {
   const [boards, setBoards] = useState([]);
   // 팝업 창 오픈
@@ -13,7 +15,6 @@ function BoardCategoryListM0() {
     setBoards(boardList);
   }  
   const deleteCategory = async (params) => {
-    console.log(params);
     const result = await fetchApi.put('/api/admin/board-categories', params);
   }
   useEffect(() => {
@@ -28,6 +29,7 @@ function BoardCategoryListM0() {
     <table className="user-table">
       <thead>
         <tr>
+          <th><input type="checkbox" id="checkAll" className="category-checkbox" aria-label="카테고리 전체 선택" onChange={selectCheckBox}></input></th>
           <th>카테고리 ID</th>
           <th>카테고리명</th>
           <th>사용 여부</th>
@@ -42,16 +44,22 @@ function BoardCategoryListM0() {
       </thead>
       <tbody>
         {boards.map(board => 
-        <tr key={board.brd_ctid}>
-          <td>{board.brd_ctid}</td>
-          <td title={board.brd_ctid_nm}>{board.brd_ctid_nm}</td>
-          <td>{board.use_yn}</td>
-          <td>{formatTs(board.brd_frrg_ts)}</td>
-          <td>{board.brd_lsmd_fnm}</td>
-          <td>{formatTs(board.brd_lsmd_ts)}</td>
-          <td>{board.brd_lsmd_unm}</td>
+        <tr key={board.brdCtid}>
+          <td><input type="checkbox" className="checkBoxId category-checkbox" aria-label={`${board.brdCtidNm} 선택`}></input></td>
+          <td>{board.brdCtid}</td>
+          <td title={board.brdCtidNm}>{board.brdCtidNm}</td>
           <td>
-            <button onClick={() => deleteCategory({ brdCtid: board.brd_ctid })}>삭제</button>
+            <select>
+              <option value={board.useYn=='Y'}>사용</option>
+              <option value={board.useYn=='N'}>미사용</option>
+            </select>
+          </td>
+          <td>{formatTs(board.brdFrrgTs)}</td>
+          <td>{board.brdLsmdFnm}</td>
+          <td>{formatTs(board.brdLsmdTs)}</td>
+          <td>{board.brdLsmdUnm}</td>
+          <td>
+            <button onClick={() => deleteCategory({ brdCtid: board.brdCtid })}>삭제</button>
           </td>
         </tr>)}
         {boards.length === 0 && 

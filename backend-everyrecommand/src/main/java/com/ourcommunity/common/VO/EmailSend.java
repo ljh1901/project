@@ -1,4 +1,4 @@
-package com.ourcommunity.common.variable;
+package com.ourcommunity.common.VO;
 
 import lombok.Getter;
 
