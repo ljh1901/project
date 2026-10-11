@@ -1,5 +1,6 @@
 ﻿import { useEffect, useState } from 'react';
 import { fetchApi } from '../../js/common/api.js';
+import { Link } from 'react-router-dom';
 import { BoardListP0 } from './BoardListP0.jsx';
 import { formatTs } from '../../js/common/timeUtils.js';
 import { popUpOpen } from '../../js/user/popUp.js';
@@ -8,12 +9,12 @@ function BoardCategoryListM0() {
   // 팝업 창 오픈
   const [isModalOpen, setIsModalOpen] = useState(false);
   const loadData = async () =>{
-    const boardList = await fetchApi.get('/api/admin/BoardCategoryM0');
+    const boardList = await fetchApi.get('/api/admin/board-categories');
     setBoards(boardList);
   }  
   const deleteCategory = async (params) => {
     console.log(params);
-    const result = await fetchApi.put('/api/admin/BoardCategoryM0', params);
+    const result = await fetchApi.put('/api/admin/board-categories', params);
   }
   useEffect(() => {
     loadData();
@@ -21,6 +22,8 @@ function BoardCategoryListM0() {
   }, []);
   return <>
   <main className="user-list">
+    <p className="eyebrow">BoardCategoryListM0</p>
+    <Link to="/boards">게시판 목록</Link>
     <caption style={{display:'none'}}>게시판 카테고리 관리</caption>
     <table className="user-table">
       <thead>
@@ -41,7 +44,7 @@ function BoardCategoryListM0() {
         {boards.map(board => 
         <tr key={board.brd_ctid}>
           <td>{board.brd_ctid}</td>
-          <td>{board.brd_ctid_nm}</td>
+          <td title={board.brd_ctid_nm}>{board.brd_ctid_nm}</td>
           <td>{board.use_yn}</td>
           <td>{formatTs(board.brd_frrg_ts)}</td>
           <td>{board.brd_lsmd_fnm}</td>

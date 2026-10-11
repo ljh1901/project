@@ -6,7 +6,7 @@ export function UserListM0() {
   const [users, setUsers] = useState([]);       // 사용자 목록
   const [selectedUser, setSelectedUser] = useState(null);
   useEffect(() => {
-  fetchApi.get('/api/admin/UserListM0')
+  fetchApi.get('/api/admin/users')
   .then(result => {
     setUsers(result);
     console.log(result);
@@ -17,7 +17,7 @@ export function UserListM0() {
     <div className="user-list-heading">
       <div>
         <p className="eyebrow">
-          사용자 관리
+          UserListM0
         </p>
         <h1>사용자 목록</h1>
       </div>

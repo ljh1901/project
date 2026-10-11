@@ -23,7 +23,7 @@ export function UserListP0({ userInfo, onClose }) {
   const [user, setUser] = useState({});
   useEffect(() => {
     let active = true;
-    fetchApi.post("/api/admin/UserListP0", {
+    fetchApi.post("/api/admin/users/detail", {
       seq: userInfo.seq,
       userId: userInfo.userId
     }).then(result => {
@@ -45,6 +45,7 @@ export function UserListP0({ userInfo, onClose }) {
         event.preventDefault();
         onClose();
       }}>
+      <p className="eyebrow">UserListP0</p>
       <h2 id="user-detail-title">사용자 상세보기</h2>
       <table>
         <tbody>

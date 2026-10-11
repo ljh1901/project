@@ -18,12 +18,14 @@ public class EncryptionConfig{
         BytesEncryptor bytesEncryptor = AesGcmBytesEncryptor.withPassword(password, salt)
                                                             .build();
         return new TextEncryptor() {
+            // 1. 암호화
             @Override
             public String encrypt(String text) {
                 byte[] encrypted = bytesEncryptor.encrypt(text.getBytes(StandardCharsets.UTF_8));
                 return Base64.getEncoder().encodeToString(encrypted);
             }
 
+            // 2. 복호화
             @Override
             public String decrypt(String encryptedText) {
                 byte[] decrypted = Base64.getDecoder().decode(encryptedText);

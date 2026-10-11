@@ -16,6 +16,7 @@ function BoardListP0({onClose, onCreated}) {
             onClose();
         }}>
         <div className="category_container">
+            <p className="eyebrow">BoardListP0</p>
             <caption style={{ display: 'none' }}>게시판 카테고리 생성 팝업</caption>
             <table>
                 <thead>

@@ -13,7 +13,7 @@ function useBoardListP0(onClose, onCreated) {
     }
 
     function addCategory(params) {
-        return fetchApi.post("/api/admin/BoardCategoryP0", params);
+        return fetchApi.post("/api/admin/board-categories", params);
     }
 
     // 카테고리 생성 함수

@@ -1,27 +1,36 @@
-import {useEffect, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { fetchApi } from '../../js/common/api';
-
-function BoardListM0(){
+import { Link } from 'react-router-dom';
+function BoardListM0() {
     return <>
-    <div>
-        <colgroup>
-        
-        </colgroup>
-        <Link to="BoardWriteM0">게시글 작성</Link>
-        <table>
-            <caption>게시판 목록</caption>
-            <thead>
-                <th>순번</th>
-                <th>제목</th>
-                <th>작성자</th>
-                <th>수정일</th>
-                <th>조회 수</th>
-            </thead>
-            <tbody>
+        <div>
+            <p className="eyebrow">BoardListM0</p>
+            <colgroup>
 
-            </tbody>
-        </table>
-    </div>
+            </colgroup>
+            <Link to="/boards/new">게시글 작성하기</Link>
+            <table>
+                <caption>게시판 목록</caption>
+                <thead>
+                    <tr>
+                        <th>순번</th>
+                        <th>제목</th>
+                        <th>작성자</th>
+                        <th>수정일</th>
+                        <th>조회 수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </>
 }
-export {BoardListM0};
+export { BoardListM0 };

@@ -43,7 +43,7 @@ public class AdminController {
 
 
     // 사용자 목록 조회
-    @GetMapping("/UserListM0")
+    @GetMapping("/users")
     public ResponseEntity<List<Map<String, Object>>> userListM0() {
         List<Map<String,Object>> result = adminService.userListM0();
         log.info("1. result 개수 조회 시작");
@@ -54,7 +54,7 @@ public class AdminController {
     }
 
     // 사용자 상세 조회
-    @PostMapping("/UserListP0")
+    @PostMapping("/users/detail")
     public ResponseEntity<Map<String,Object>> userListP0(@RequestBody Map<String, Object> params) {
         Map<String,Object> result = adminService.userListP0(params);
         
@@ -62,7 +62,7 @@ public class AdminController {
     }
 
     // 게시판 카테고리 목록 조회
-    @GetMapping("/BoardCategoryM0")
+    @GetMapping("/board-categories")
     public ResponseEntity<List<Map<String, Object>>> boardCategoryListM0(Map<String, Object> params) {
 
         List<Map<String, Object>> result = adminService.boardCategoryM0();
@@ -71,7 +71,7 @@ public class AdminController {
         return res;
     }
     // 게시판 카테고리 생성
-    @PostMapping("/BoardCategoryP0")
+    @PostMapping("/board-categories")
     public ResponseEntity<Integer> boardCategoryP0(@RequestBody Map<String,Object> params) {
         Integer result = adminService.boardCategoryP0(params);
         log.info("카테고리 생성결과 result => {}",result);
@@ -79,7 +79,7 @@ public class AdminController {
         return ResponseEntity.ok().body(result);
     }
     // 게시판 카테고리 수정
-    @PutMapping("/BoardCategoryM0")
+    @PutMapping("/board-categories")
     public ResponseEntity<?> putMethodName(@RequestBody Map<String,Object> params) {
         log.info("parameter 값 : {} ",params.toString());
         log.info(MapUtils.getString(params, "brdCtid"));

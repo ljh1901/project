@@ -62,7 +62,36 @@ input {
     padding: 12px;
     margin: 7px 0 21px
 }
+.board__container .board-title-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
 
+.board__container .board-title-row input {
+    flex: 1;
+    min-width: 0;
+    width: auto;
+    margin: 0;
+}
+
+.board__container .board-content {
+    position: relative;
+    min-height: 200px;
+}
+
+.board__container .board-content[data-empty="true"]::before {
+    content: attr(data-placeholder);
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: gray;
+    pointer-events: none;
+}
+
+.attachFiles[hidden] {
+    display: none;
+}
 input:focus,
 button:focus-visible,
 a:focus-visible {
