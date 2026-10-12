@@ -1,4 +1,4 @@
-package com.ourcommunity.common.security;
+package com.ourcommunity.utils;
 
 import java.io.Console;
 import java.nio.charset.StandardCharsets;

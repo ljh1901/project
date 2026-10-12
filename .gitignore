@@ -7,3 +7,5 @@ bin/
 .env
 *.log
 uploads/
+docs/
+AGENTS.md

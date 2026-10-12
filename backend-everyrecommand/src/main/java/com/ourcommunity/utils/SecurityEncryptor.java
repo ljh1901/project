@@ -1,4 +1,4 @@
-package com.ourcommunity.common.security;
+package com.ourcommunity.utils;
 
 import java.security.SecureRandom;
 import java.util.Base64;
