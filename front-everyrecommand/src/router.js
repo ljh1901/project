@@ -7,21 +7,9 @@ import Main from './layout/user/UserMain.jsx';
 /**
  * ===================================================================
  * 1. 라우트 상수 / 기본 유틸 / 상태 정의
- * ===================================================================
- * 
- * ===================================================================
  * 2. 정적 라우트 정의
- * ===================================================================
- * 
- * ===================================================================
  * 3. 동적 라우트 정의
- * ===================================================================
- * 
- * ===================================================================
  * 4. clearRoutes
- * ===================================================================
- * 
- * ===================================================================
  * 5. 라우터 초기화
  * ===================================================================
  *  */ 
@@ -48,7 +36,10 @@ const adminRoutes = Object.entries(screens).map(([file, load]) => {
     path: name,
     lazy: async () => {
       const module = await load();
-      return { Component: module[name] };
+      return {
+        Component: module[name],
+        handle: { screenName: name },
+      };
     },
   };
 });
@@ -71,7 +62,10 @@ const router = createBrowserRouter([
   },
     {
       path: "/",
-      /**   1. 새로고침 하면서 이동
+      /**   
+       * // router.js 없이 History API 사용(Vanilla Js)
+       * 
+       *    1. 새로고침 하면서 이동
        *    history.pushState(null, "", "/main") 
        *    location.href=""
        *    
@@ -89,7 +83,10 @@ const router = createBrowserRouter([
           index: true,
           lazy: async () => {
             const module = await boardScreens['./screens/board/BoardListM0.jsx']();
-            return { Component: module.BoardListM0 };
+            return {
+              Component: module.BoardListM0,
+              handle: { screenName: 'BoardListM0' },
+            };
           },
         },
       ]
@@ -105,10 +102,12 @@ const router = createBrowserRouter([
         {
           path: "users",
           Component: UserListM0,
+          handle: { screenName: 'UserListM0' },
         },
         {
           path: "board-categories",
           Component: BoardCategoryListM0,
+          handle: { screenName: 'BoardCategoryListM0' },
         },
         ...adminRoutes,
       ]
@@ -130,10 +129,10 @@ const router = createBrowserRouter([
       * 
       **/ 
     async patchRoutesOnNavigation({ path, patch }) {
-      const match = path.match(/^\/boards\/(new)\/?$/);
+      const match = path.match(/^\/boards\/([^/]+)\/?$/);
       if (!match) return;
 
-      const screenName = "BoardWriteM0";
+      const screenName = match[1];
       const load = boardScreens[`./screens/board/${screenName}.jsx`];
 
       // 실제로 존재하는 화면만 등록
@@ -141,7 +140,8 @@ const router = createBrowserRouter([
 
       patch("main", [
         {
-          path: match[1],
+          path: screenName,
+          handle: { screenName },
           lazy: async () => {
             const module = await load();
             return { Component: module[screenName] };

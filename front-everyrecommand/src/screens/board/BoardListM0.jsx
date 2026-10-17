@@ -9,7 +9,7 @@ function BoardListM0() {
                     <h1>게시판</h1>
                     <p className="page-description">경험과 추천을 나누는 공간입니다.</p>
                 </div>
-                <Link to="/boards/new" className="button button-primary">게시글 작성</Link>
+                <Link to="/boards/BoardWriteM0" className="button button-primary">게시글 작성</Link>
             </div>
             <section className="panel" aria-label="게시글 목록">
                 <div className="panel-heading"><h2>게시글 목록</h2></div>

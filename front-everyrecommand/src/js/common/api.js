@@ -24,10 +24,10 @@ export const fetchApi = {
   get(url) {
     return request(url, { method: 'GET' });
   },
-  post(url, params) {
+  post(url, params, options = {}) {
     return request(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {'Content-Type': options.contentType ?? 'application/json'},
       body: JSON.stringify(params),
     });
   },

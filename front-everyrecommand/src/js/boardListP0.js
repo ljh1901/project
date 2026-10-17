@@ -10,7 +10,9 @@ function useBoardListP0(onClose, onCreated) {
     const handleChange = createChangeHandler(setParams);
 
     function addCategory(params) {
-        return fetchApi.post("/api/admin/board-categories", params);
+        return fetchApi.post("/api/admin/board-categories", params, {
+            contentType: 'application/json'
+        });
     }
 
     // 카테고리 생성 함수
