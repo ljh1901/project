@@ -1,0 +1,68 @@
+.user-list-grid {
+    width: 100%;
+    height: clamp(360px, 58dvh, 640px);
+}
+
+.user-list-grid .ag-root-wrapper {
+    border: 0;
+    border-radius: 0;
+}
+
+.user-list-grid .ag-header-cell-text {
+    font-weight: 600;
+}
+
+.user-list-grid .ag-cell {
+    display: flex;
+    align-items: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.user-list-grid .ag-cell[col-id='seqTbEvrcUsers'] {
+    color: var(--color-muted);
+}
+
+.user-list-grid .ag-cell[col-id='userId'] {
+    color: var(--color-text);
+    font-weight: 500;
+}
+
+.user-list-grid .ag-cell[col-id='userCret'],
+.user-list-grid .ag-cell[col-id='userUpet'] {
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.user-list-grid .user-detail-button {
+    min-height: 28px;
+    padding: 2px 10px;
+    background: #fff;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.user-list-grid .user-detail-button:hover {
+    background: var(--color-subtle);
+}
+
+.user-list-grid .ag-overlay-no-rows-center {
+    padding: 24px;
+    border: 0;
+    background: none;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.user-download-button svg {
+    width: 16px;
+    height: 16px;
+}
+
+@media (max-width: 760px) {
+    .user-list-grid {
+        height: 480px;
+    }
+    .user-download-button {
+        align-self: center;
+    }
+}

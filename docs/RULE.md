@@ -3,6 +3,20 @@
 > 본 규칙은 AI Coding Agent(Codex 등)의 모든 코드 분석 및 수정 작업에 우선 적용합니다.
 >
 > **사용자의 명시적인 승인 없이 파일을 수정하지 않습니다.**
+> **코드를 만들때, vscode 기준으로 ctrl+k+f를 눌렀을때, 코드 정렬이 될 수 있도록 들여쓰기를 맞춰서 작성할 수 있도록 한다.**
+> [ex] 코드 작성 예시
+```
+    <div>
+        <div>
+            <input name="" value="" />        
+        </div>
+            <select className="" id="">
+                <option value=""></option>
+                <option value=""></option>
+            </select>
+    </div>
+
+```
 
 ## 1-1. 파일 탐색 및 수정 범위 제한
 

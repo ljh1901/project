@@ -1,14 +1,14 @@
-import { Link } from 'react-router-dom';
-function Footer(){
-    return <footer>
-        <div className="footer__container">
-            <div>
-                <a href="/admin/users">관리자 모드</a>
+﻿import { Link } from 'react-router-dom';
+
+function Footer() {
+    return (
+        <footer className="site-footer">
+            <div className="footer__container">
+                <span>&copy; EveryRecommand</span>
+                <Link to="/admin/users">관리자 페이지</Link>
             </div>
-            <div>
-                <label>&copy; EveryRecommand</label>
-            </div>
-        </div>
-    </footer>
+        </footer>
+    );
 }
+
 export default Footer;

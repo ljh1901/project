@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "ag-grid": "^18.1.2",
+    "ag-grid-community": "36.2.0",
+    "ag-grid-react": "36.2.0",
     "exceljs": "4.4.0",
     "pdfjs-dist": "5.5.207",
     "react": "19.3.0",

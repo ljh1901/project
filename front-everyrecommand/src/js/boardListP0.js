@@ -1,16 +1,13 @@
 import { useState } from 'react';
 import {fetchApi} from './common/api.js';
+import { createChangeHandler } from './utils/formUtils.js';
 function useBoardListP0(onClose, onCreated) {
     const [params, setParams] = useState({
         brdCtidNm: '',
         useYn: 'Y',
     });
 
-    // 내부 변수 감지
-    function handleChange(event) {
-        const { name, value } = event.target;
-        setParams(prev => ({ ...prev, [name]: value }));
-    }
+    const handleChange = createChangeHandler(setParams);
 
     function addCategory(params) {
         return fetchApi.post("/api/admin/board-categories", params);

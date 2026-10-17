@@ -1,14 +1,15 @@
 import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { loadAppConfig } from './appConfig.js';
-import { Router } from '../../router.js';
+import { App } from './App.jsx';
+import '../../css/styles.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(createElement('p', { className: 'loading', role: 'status' }, '모두의 추천을 준비하고 있습니다.'));
 loadAppConfig()
   .then((res) => {
     window.profile=res.profile.substring(0,res.profile.indexOf(','));
-    root.render(createElement(Router))
+    root.render(createElement(App))
   })
   .catch(error => root.render(
     createElement('main', { className: 'startup-error' },

@@ -46,26 +46,28 @@ export function UserListP0({ userInfo, onClose }) {
         event.preventDefault();
         onClose();
       }}>
-      <p className="eyebrow">UserListP0</p>
-      <h2 id="user-detail-title">사용자 상세보기</h2>
-      <table>
-        <tbody>
-          <tr>
-            <th>아이디</th>
-            <td>{user.userId}</td>
-          </tr>
-          <tr>
-            <th>이름</th>
-            <td>{user.userName}</td>
-          </tr>
-          <tr><th scope="row">생년월일</th><td>{user.userBrth?.split('T')[0] || '-'}</td></tr>
-          <tr><th scope="row">이메일</th><td>{user.userEmil || '-'}</td></tr>
-          <tr><th scope="row">전화번호</th><td>{user.userPrfid || '-'}</td></tr>
-          <tr><th scope="row">최초 생성일</th><td>{user.userCret?.split('T')[0] || '-'}</td></tr>
-          <tr><th scope="row">최종 수정일</th><td>{user.userUpet?.split('T')[0] || '-'}</td></tr>
-        </tbody>
-      </table>
-
+      <div className="modal-heading">
+        <h2 id="user-detail-title">사용자 상세보기</h2>
+      </div>
+      <div className="modal-body">
+        <table className="detail-table">
+          <tbody>
+            <tr>
+              <th>아이디</th>
+              <td>{user.userId}</td>
+            </tr>
+            <tr>
+              <th>이름</th>
+              <td>{user.userName}</td>
+            </tr>
+            <tr><th scope="row">생년월일</th><td>{user.userBrth?.split('T')[0] || '-'}</td></tr>
+            <tr><th scope="row">이메일</th><td>{user.userEmil || '-'}</td></tr>
+            <tr><th scope="row">전화번호</th><td>{user.userPrfid || '-'}</td></tr>
+            <tr><th scope="row">최초 생성일</th><td>{user.userCret?.split('T')[0] || '-'}</td></tr>
+            <tr><th scope="row">최종 수정일</th><td>{user.userUpet?.split('T')[0] || '-'}</td></tr>
+          </tbody>
+        </table>
+      </div>
       <div className="dialog-actions">
         <button type="button" onClick={onClose}>
           닫기
