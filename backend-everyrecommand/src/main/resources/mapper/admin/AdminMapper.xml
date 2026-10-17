@@ -51,4 +51,11 @@
             VALUES((SELECT COALESCE(MAX(BRD_CTID),0)+1 
                     FROM TB_EVRC_BRDCT), #{brdCtidNm}, #{useYn}, 'ADMIN','ADMIN',CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)
     </insert>
+    <update id="boardCategoryP1">
+        <foreach collection="params" item="map" separator=";">
+            UPDATE TB_EVRC_BRDCT
+            SET USE_YN = #{map.useYn}
+            WHERE BRD_CTID = #{map.brdCtid}
+        </foreach>
+    </update>
 </mapper>

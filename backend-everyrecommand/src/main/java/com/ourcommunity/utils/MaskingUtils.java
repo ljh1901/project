@@ -3,6 +3,7 @@ package com.ourcommunity.utils;
 
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Component;
 
 @Component 
 public class MaskingUtils {
+
     // @Value static X
     @Value("${pattern.email}")
     private String EMAIL_PATTERN;
@@ -49,7 +51,7 @@ public class MaskingUtils {
                             }
                             case 3: {
                                 params = params.substring(0, 1) + "*" + params.substring(2);
-                                break;
+                                break;  
                             }
                             case 4: {
                                 params = params.substring(0, 1) + "**" + params.substring(3);

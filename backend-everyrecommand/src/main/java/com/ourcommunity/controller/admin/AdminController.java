@@ -81,8 +81,13 @@ public class AdminController {
 
     // 게시판 카테고리 수정
     @PutMapping("/board-categories")
-    public ResponseEntity<?> putMethodName(@RequestBody Map<String,Object> params) {
-        log.info("parameter 값 : {} ",params.toString());
+    public ResponseEntity<?> putMethodName(@RequestBody List<Map<String,Object>> params) {
+        if (params == null || params.isEmpty()) {
+            return ResponseEntity.badRequest().build();
+        }
+        log.info("params => {}", params);
+
+        adminService.boardCategoryP1(params);
         return ResponseEntity.ok().build();
     }
     

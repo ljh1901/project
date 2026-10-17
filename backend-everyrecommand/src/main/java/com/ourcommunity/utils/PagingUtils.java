@@ -8,7 +8,7 @@ package com.ourcommunity.utils;
  */
 public class PagingUtils {
     public static String pagingAlgorithm(String url, int totalCount, int pageSize, int listSize, int currentPage){
-        if(currentPage <0) currentPage = 1;
+        if(currentPage < 0) currentPage = 1;
         StringBuilder paging = new StringBuilder();
 
         // 1. 전체 페이지 구하기

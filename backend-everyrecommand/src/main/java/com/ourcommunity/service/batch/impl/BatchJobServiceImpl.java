@@ -1,10 +1,13 @@
 package com.ourcommunity.service.batch.impl;
 
+import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
 
 import com.ourcommunity.mapper.batch.BatchMapper;
@@ -22,5 +25,9 @@ public class BatchJobServiceImpl implements BatchJobService{
         List<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
         result = batchMapper.searchBatchJob(params);
         return result;
+    }
+    @Override
+    public Map<String, Object> tempFileClearJob(Map<String, Object> params) {
+        return null;
     }
 }

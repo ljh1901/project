@@ -1,7 +1,8 @@
+
 function selectCheckBox(){
-   
-   const checkBoxStatus=document.getElementById('checkAll').checked;
-   const checkId = document.querySelectorAll('.checkBoxId');
+    
+const checkBoxStatus=document.getElementById('checkAll').checked;
+const checkId = document.querySelectorAll('.checkBoxId');
    for(const check of checkId)
     
     if(checkBoxStatus){
@@ -10,4 +11,7 @@ function selectCheckBox(){
         check.checked = false;
     }
 }
-export {selectCheckBox};
+function selectedCheckBoxes(){
+    
+}
+export {selectCheckBox, selectedCheckBoxes};

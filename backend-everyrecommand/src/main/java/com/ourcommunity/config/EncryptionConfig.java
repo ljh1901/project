@@ -5,9 +5,12 @@ import java.util.Base64;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.encrypt.AesBytesEncryptor;
 import org.springframework.security.crypto.encrypt.AesGcmBytesEncryptor;
 import org.springframework.security.crypto.encrypt.BytesEncryptor;
 import org.springframework.security.crypto.encrypt.TextEncryptor;
+import org.springframework.security.crypto.encrypt.AesBytesEncryptor.CipherAlgorithm;
+import org.springframework.security.crypto.keygen.KeyGenerators;
 
 @Configuration 
 public class EncryptionConfig{
@@ -17,6 +20,10 @@ public class EncryptionConfig{
                                        @Value("${app.encryption.salt}")String salt){
         BytesEncryptor bytesEncryptor = AesGcmBytesEncryptor.withPassword(password, salt)
                                                             .build();
+        
+        //BytesEncryptor bytesEncryptor = new AesBytesEncryptor(password, salt, 
+        // KeyGenerators.secureRandom(16), 
+        // AesBytesEncryptor.CipherAlgorithm.GCM);
         return new TextEncryptor() {
             // 1. 암호화
             @Override

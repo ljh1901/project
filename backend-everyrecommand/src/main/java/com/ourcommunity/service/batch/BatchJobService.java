@@ -5,4 +5,5 @@ import java.util.Map;
 
 public interface BatchJobService {
     List<Map<String,Object>> searchBatchJob(Map<String,Object> params);
+    Map<String,Object> tempFileClearJob(Map<String,Object> params);
 }

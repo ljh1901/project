@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.ourcommunity.mapper.admin.AdminMapper;
 import com.ourcommunity.service.admin.AdminService;
@@ -15,7 +16,7 @@ public class AdminServiceImpl implements AdminService{
 
     private final AdminMapper adminMapper;
     private final MaskingUtils maskingUtils;
-
+    
     public AdminServiceImpl(AdminMapper adminMapper, MaskingUtils maskingUtils) {
         this.adminMapper = adminMapper;
         this.maskingUtils = maskingUtils;
@@ -57,5 +58,11 @@ public class AdminServiceImpl implements AdminService{
     public int boardCategoryP0(Map<String, Object> params) {
         int result = adminMapper.boardCategoryP0(params);
         return result;
+    }
+
+    @Override
+    @Transactional
+    public int boardCategoryP1(List<Map<String, Object>> params) {
+        return adminMapper.boardCategoryP1(params);
     }
 }
