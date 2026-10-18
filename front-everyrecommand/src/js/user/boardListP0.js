@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import {fetchApi} from './common/api.js';
-import { createChangeHandler } from './utils/formUtils.js';
+import {fetchApi} from '../common/api.js';
+import { createChangeHandler } from '../utils/formUtils.js';
 function useBoardListP0(onClose, onCreated) {
     const [params, setParams] = useState({
         brdCtidNm: '',

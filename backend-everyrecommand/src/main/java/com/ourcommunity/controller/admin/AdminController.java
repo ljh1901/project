@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ourcommunity.service.admin.AdminService;
 import com.ourcommunity.service.admin.impl.AdminServiceImpl;
+import com.ourcommunity.utils.PagingUtils;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -24,6 +25,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PutMapping;
 
 
@@ -61,10 +63,11 @@ public class AdminController {
     }
 
     // 게시판 카테고리 목록 조회
-    @GetMapping("/board-categories")
-    public ResponseEntity<List<Map<String, Object>>> boardCategoryListM0(Map<String, Object> params) {
-
-        List<Map<String, Object>> result = adminService.boardCategoryM0();
+    @GetMapping("/board-categoriesM0")
+    public ResponseEntity<List<Map<String, Object>>> boardCategoryListM0(@RequestParam Map<String, Object> params) {
+        int totalCount = adminService.boardCategoryM0Cnt(params);
+        PagingUtils.pagingAlgorithm("/admin/board-categories", totalCount, 5, MapUtils.getInteger(params, "listCount"),1);
+        List<Map<String, Object>> result = adminService.boardCategoryM0(params);
         log.info("result = {}", result);
         ResponseEntity<List<Map<String,Object>>> res = new ResponseEntity<>(result, HttpStatus.OK);
         return res;
@@ -85,7 +88,6 @@ public class AdminController {
         if (params == null || params.isEmpty()) {
             return ResponseEntity.badRequest().build();
         }
-        log.info("params => {}", params);
 
         adminService.boardCategoryP1(params);
         return ResponseEntity.ok().build();

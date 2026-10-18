@@ -1,9 +1,9 @@
 import { createElement } from 'react';
 import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
-import { UserListM0 } from './screens/user/UserListM0.jsx';
-import { BoardCategoryListM0 } from './screens/board/BoardCategoryListM0.jsx';
-import AdminMain from './layout/admin/AdminMain.jsx';
-import Main from './layout/user/UserMain.jsx';
+import { UserListM0 } from '../../screens/user/UserListM0.jsx';
+import { BoardCategoryListM0 } from '../../screens/board/BoardCategoryListM0.jsx';
+import AdminMain from '../../layout/admin/AdminMain.jsx';
+import Main from '../../layout/user/UserMain.jsx';
 /**
  * ===================================================================
  * 1. 라우트 상수 / 기본 유틸 / 상태 정의
@@ -26,7 +26,7 @@ import Main from './layout/user/UserMain.jsx';
 // 1. `screens/admin` 바로 아래의 모든 `.jsx` 파일**
 const screens = import.meta.glob('./screens/admin/*.jsx');
 // 팝업(P0)을 제외한 게시판 화면을 파일명으로 찾아 동적으로 등록합니다.
-const boardScreens = import.meta.glob('./screens/board/*M0.jsx');
+const boardScreens = import.meta.glob('../../screens/board/*M0.jsx');
 
 
 // screens 에서 Object로 경로 동적 생성
@@ -82,7 +82,7 @@ const router = createBrowserRouter([
         { 
           index: true,
           lazy: async () => {
-            const module = await boardScreens['./screens/board/BoardListM0.jsx']();
+            const module = await boardScreens['../../screens/board/BoardListM0.jsx']();
             return {
               Component: module.BoardListM0,
               handle: { screenName: 'BoardListM0' },
@@ -133,7 +133,7 @@ const router = createBrowserRouter([
       if (!match) return;
 
       const screenName = match[1];
-      const load = boardScreens[`./screens/board/${screenName}.jsx`];
+      const load = boardScreens[`../../screens/board/${screenName}.jsx`];
 
       // 실제로 존재하는 화면만 등록
       if (!load) return;

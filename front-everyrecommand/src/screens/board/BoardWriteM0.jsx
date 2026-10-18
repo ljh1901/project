@@ -1,4 +1,4 @@
-import { boardWriteM0, onHandleClick, onHandleInput } from "../../js/boardWriteM0";
+import { boardWriteM0, onHandleClick, onHandleInput } from "../../js/user/boardWriteM0";
 import { useState } from 'react';
 import { createChangeHandler } from '../../js/utils/formUtils.js';
 // import {ag} from 'ag-grid'
@@ -47,10 +47,12 @@ function BoardWriteM0() {
                         onInput={(e) => {
                             const editor = e.currentTarget;
                             editor.dataset.empty = String(!editor.textContent);
-                            onHandleInput();
+                                    onHandleInput(e);
                         }}
                     />
-                    <div className="textCount">0/0</div>
+                    <div className="textCount" 
+                        onInput={onHandleInput}
+                        onCompositionEnd={onHandleInput}>0/0</div>
                     <div className="attach-file-container">
                         <input type="file" className="attachFiles" id="file1" onChange={boardWriteM0} multiple hidden />
                         <button type="button" className="fileBtn" onClick={fileBtn}>파일첨부</button>

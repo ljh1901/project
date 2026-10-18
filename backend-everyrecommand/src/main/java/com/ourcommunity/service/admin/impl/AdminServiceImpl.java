@@ -1,5 +1,6 @@
 package com.ourcommunity.service.admin.impl;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,7 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<Map<String, Object>> boardCategoryM0() {
+    public List<Map<String, Object>> boardCategoryM0(Map<String, Object> params) {
         List<Map<String,Object>> result = adminMapper.boardCategoryM0();
         return result;
     }
@@ -64,5 +65,10 @@ public class AdminServiceImpl implements AdminService{
     @Transactional
     public int boardCategoryP1(List<Map<String, Object>> params) {
         return adminMapper.boardCategoryP1(params);
+    }
+    @Override
+    public int boardCategoryM0Cnt(Map<String, Object> params) {
+        int totalCnt =  adminMapper.boardCategoryM0Cnt(params);
+        return totalCnt;
     }
 }

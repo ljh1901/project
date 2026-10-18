@@ -1,5 +1,5 @@
 ﻿import { useRef, useEffect } from 'react';
-import { useBoardListP0 } from '../../js/boardListP0.js';
+import { useBoardListP0 } from '../../js/user/boardListP0';
 
 function BoardListP0({ onClose, onCreated }) {
     const dialogRef = useRef(null);

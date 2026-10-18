@@ -15,20 +15,26 @@ const userColumns = [
 ];
 
 async function createUserWorkbook(users) {
+    // excelJs 라이브러리 로드
     const { default: ExcelJS } = await import('exceljs');
+    // 1. 빈 WorkSheet 생성
     const workbook = new ExcelJS.Workbook();
+    // 2. Sheet 추가 및 이름 설정
     const worksheet = workbook.addWorksheet('사용자 목록');
+    // 3. column 설정
     worksheet.columns = userColumns.map(column => ({
         header: column.headerName,
         key: column.field,
         width: column.field === 'userEmil' ? 32 : 20,
     }));
+    // 4. 열 추가
     users.forEach(user => {
         worksheet.addRow(userColumns.map(column => {
             const value = user[column.field];
             return String(column.valueFormatter ? column.valueFormatter({ value }) : value ?? '');
         }));
     });
+    // 스타일 설정
     worksheet.getRow(1).font = { bold: true };
     worksheet.views = [{ state: 'frozen', ySplit: 1 }];
     return workbook;

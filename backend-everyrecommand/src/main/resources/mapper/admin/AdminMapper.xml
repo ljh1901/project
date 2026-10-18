@@ -26,6 +26,20 @@
             WHERE SEQ_TB_EVRC_USERS = #{seq}
             AND USER_ID= #{userId}
     </select>
+    <select id="boardCategoryM0Cnt" resultType="Integer">
+            SELECT COUNT(1) AS BRD_CT_CNT
+            FROM TB_EVRC_BRDCT
+            WHERE 1=1
+            <if test="useYn != null and useYn != ''">
+                AND USE_YN = #{useYn}
+            </if>
+            <if test="brdCtidNm != null and brdCtidNm != ''">
+                AND BRD_CTID_NM = #{brdCtidNm}
+            </if>
+            <if test="brdFrrgTs != null and brdFrrgTs != ''">
+                AND BRD_FRRG_TS = #{brdFrrgTs}
+            </if>
+    </select>
     <select id="boardCategoryM0" resultType="MybatisMap">
             SELECT BRD_CTID, 
 	               BRD_CTID_NM,

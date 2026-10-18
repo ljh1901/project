@@ -9,5 +9,6 @@ public interface AdminMapper {
     public Map<String,Object> userListP0(Map<String, Object> params);
     public List<Map<String,Object>> boardCategoryM0();
     public int boardCategoryP0(Map<String,Object> params);
-     int boardCategoryP1(@Param("params") List<Map<String, Object>> params);
+    int boardCategoryP1(@Param("params") List<Map<String, Object>> params);
+    public int boardCategoryM0Cnt(Map<String, Object> params);
 }
