@@ -60,9 +60,11 @@ public class AdminServiceImpl implements AdminService{
             }
         }
         Map<String, Object> paging = PagingUtils.pagingAlgorithm("/admin/board-categories", searchParams, totalCount, 5,
-                MapUtils.getIntValue(params, "listCount", 5), MapUtils.getIntValue(params, "currentPage", 1));
+                        MapUtils.getIntValue(params, "listCount", 5), 
+                        MapUtils.getIntValue(params, "currentPage", 1));
         params.putAll(paging);
-        return Map.of("list", adminMapper.boardCategoryM0(params), "paging", paging);
+        return Map.of("list", adminMapper.boardCategoryM0(params), 
+                      "paging", paging);
     }
 
     @Override

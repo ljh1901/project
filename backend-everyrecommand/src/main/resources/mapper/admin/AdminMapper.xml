@@ -34,7 +34,7 @@
                 AND USE_YN = #{useYn}
             </if>
             <if test="brdCtidNm != null and brdCtidNm != ''">
-                AND BRD_CTID_NM = #{brdCtidNm}
+                AND BRD_CTID_NM LIKE '%' || #{brdCtidNm} || '%'
             </if>
             <if test="brdFrrgTs != null and brdFrrgTs != ''">
                 AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
@@ -61,7 +61,7 @@
                 AND USE_YN = #{useYn}
             </if>
             <if test="brdCtidNm != null and brdCtidNm != ''">
-                AND BRD_CTID_NM = #{brdCtidNm}
+                AND BRD_CTID_NM LIKE '%' || #{brdCtidNm} || '%'
             </if>
             <if test="brdFrrgTs != null and brdFrrgTs != ''">
                 AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
@@ -81,7 +81,7 @@
                 AND USE_YN = #{useYn}
             </if>
             <if test="brdCtidNm != null and brdCtidNm != ''">
-                AND BRD_CTID_NM = #{brdCtidNm}
+                AND BRD_CTID_NM LIKE '%' || #{brdCtidNm} || '%'
             </if>
             <if test="brdFrrgTs != null and brdFrrgTs != ''">
                 AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
