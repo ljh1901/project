@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ourcommunity.service.admin.AdminService;
 import com.ourcommunity.service.admin.impl.AdminServiceImpl;
-import com.ourcommunity.utils.PagingUtils;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -64,13 +63,19 @@ public class AdminController {
 
     // 게시판 카테고리 목록 조회
     @GetMapping("/board-categoriesM0")
-    public ResponseEntity<List<Map<String, Object>>> boardCategoryListM0(@RequestParam Map<String, Object> params) {
-        int totalCount = adminService.boardCategoryM0Cnt(params);
-        PagingUtils.pagingAlgorithm("/admin/board-categories", totalCount, 5, MapUtils.getInteger(params, "listCount"),1);
-        List<Map<String, Object>> result = adminService.boardCategoryM0(params);
-        log.info("result = {}", result);
-        ResponseEntity<List<Map<String,Object>>> res = new ResponseEntity<>(result, HttpStatus.OK);
-        return res;
+    public ResponseEntity<Map<String, Object>> boardCategoryListM0(@RequestParam Map<String, Object> params) {
+        try {
+            int currentPage = Integer.parseInt(params.getOrDefault("currentPage", "1").toString());
+            int listCount = Integer.parseInt(params.getOrDefault("listCount", "5").toString());
+            if (currentPage < 1 || listCount < 1 || listCount > 100) {
+                return ResponseEntity.badRequest().body(Map.of("message", "페이지 조회 조건이 올바르지 않습니다."));
+            }
+            params.put("currentPage", currentPage);
+            params.put("listCount", listCount);
+        } catch (NumberFormatException exception) {
+            return ResponseEntity.badRequest().body(Map.of("message", "페이지 조회 조건은 정수여야 합니다."));
+        }
+        return ResponseEntity.ok(adminService.boardCategoryM0(params));
     }
 
     // 게시판 카테고리 생성

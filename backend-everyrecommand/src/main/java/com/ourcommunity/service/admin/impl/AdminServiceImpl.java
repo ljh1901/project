@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.ourcommunity.mapper.admin.AdminMapper;
 import com.ourcommunity.service.admin.AdminService;
 import com.ourcommunity.utils.MaskingUtils;
+import com.ourcommunity.utils.PagingUtils;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -50,9 +51,18 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<Map<String, Object>> boardCategoryM0(Map<String, Object> params) {
-        List<Map<String,Object>> result = adminMapper.boardCategoryM0();
-        return result;
+    public Map<String, Object> boardCategoryM0(Map<String, Object> params) {
+        int totalCount = adminMapper.boardCategoryM0Cnt(params);
+        Map<String, Object> searchParams = new HashMap<>();
+        for (String key : List.of("useYn", "brdCtidNm", "brdFrrgTs")) {
+            if (params.get(key) != null) {
+                searchParams.put(key, params.get(key));
+            }
+        }
+        Map<String, Object> paging = PagingUtils.pagingAlgorithm("/admin/board-categories", searchParams, totalCount, 5,
+                MapUtils.getIntValue(params, "listCount", 5), MapUtils.getIntValue(params, "currentPage", 1));
+        params.putAll(paging);
+        return Map.of("list", adminMapper.boardCategoryM0(params), "paging", paging);
     }
 
     @Override

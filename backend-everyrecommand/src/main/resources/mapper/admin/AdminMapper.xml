@@ -26,10 +26,10 @@
             WHERE SEQ_TB_EVRC_USERS = #{seq}
             AND USER_ID= #{userId}
     </select>
-    <select id="boardCategoryM0Cnt" resultType="Integer">
-            SELECT COUNT(1) AS BRD_CT_CNT
-            FROM TB_EVRC_BRDCT
-            WHERE 1=1
+    <select id="boardCategoryM0Cnt" parameterType="map" resultType="Integer">
+        SELECT COUNT(1)
+        FROM TB_EVRC_BRDCT
+        WHERE 1=1
             <if test="useYn != null and useYn != ''">
                 AND USE_YN = #{useYn}
             </if>
@@ -37,10 +37,10 @@
                 AND BRD_CTID_NM = #{brdCtidNm}
             </if>
             <if test="brdFrrgTs != null and brdFrrgTs != ''">
-                AND BRD_FRRG_TS = #{brdFrrgTs}
+                AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
             </if>
     </select>
-    <select id="boardCategoryM0" resultType="MybatisMap">
+    <sql id="boardCategoryColumns">
             SELECT BRD_CTID, 
 	               BRD_CTID_NM,
 	               USE_YN,
@@ -48,11 +48,46 @@
 	               BRD_LSMD_UNM,
 	               BRD_FRRG_TS,
 	               BRD_LSMD_TS
-            FROM TB_EVRC_BRDCT
-            WHERE 1=1
+    </sql>
+    <select id="boardCategoryM0" parameterType="map" resultType="MybatisMap">
+        SELECT TB.*
+        FROM (
+            SELECT ROW_NUMBER() OVER (ORDER BY TA.BRD_CTID) AS RNUM, TA.*
+            FROM (
+                <include refid="boardCategoryColumns" />
+                FROM TB_EVRC_BRDCT
+                WHERE 1=1
             <if test="useYn != null and useYn != ''">
                 AND USE_YN = #{useYn}
             </if>
+            <if test="brdCtidNm != null and brdCtidNm != ''">
+                AND BRD_CTID_NM = #{brdCtidNm}
+            </if>
+            <if test="brdFrrgTs != null and brdFrrgTs != ''">
+                AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
+            </if>
+            ORDER BY BRD_CTID
+            ) TA
+        ) TB
+        WHERE TB.RNUM BETWEEN #{start} AND #{end}
+        ORDER BY TB.RNUM
+    </select>
+    <!-- LIMIT/OFFSET 비교용이며 실제 목록 조회에서는 호출하지 않습니다. -->
+    <select id="boardCategoryM0_postgre" parameterType="map" resultType="MybatisMap">
+        <include refid="boardCategoryColumns" />
+        FROM TB_EVRC_BRDCT
+        WHERE 1=1
+        <if test="useYn != null and useYn != ''">
+                AND USE_YN = #{useYn}
+            </if>
+            <if test="brdCtidNm != null and brdCtidNm != ''">
+                AND BRD_CTID_NM = #{brdCtidNm}
+            </if>
+            <if test="brdFrrgTs != null and brdFrrgTs != ''">
+                AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
+            </if>
+        ORDER BY BRD_CTID
+        LIMIT #{listCount} OFFSET (#{start} - 1)
     </select>
     <insert id="boardCategoryP0" parameterType="map">
         INSERT INTO TB_EVRC_BRDCT(brd_ctid, 

@@ -4,18 +4,12 @@ import { formatTs } from '../../js/utils/timeUtils.js';
 import { useBoardCategoryListM0} from '../../js/admin/boardCategoryListM0.js';
 import '../../css/boardCategoryListM0.css';
 function BoardCategoryListM0() {
-    // 조회 조건
-  const searchObj = {
-    listCount: '5',
-    useYn: '',
-    brdCtidNm: '',
-    brdFrrgTs: '',
-  };
   const {
     boards, selectedIds, isSaving, error, isModalOpen, setIsModalOpen,
     loadData, deleteCategory, saveSelected, selectCheckBox, selectedCheckBoxes, handleChange,
-    searchBtn
-  } = useBoardCategoryListM0(searchObj);
+    searchBtn, paging, searchObj, setSearchObj
+  } = useBoardCategoryListM0();
+  const changeSearch = (name, value) => setSearchObj(prev => ({ ...prev, [name]: value }));
 
   return <>
     <main className="user-list">
@@ -24,21 +18,19 @@ function BoardCategoryListM0() {
       <caption style={{ display: 'none' }}>게시판 카테고리 관리</caption>
       <div style={{ display: 'flex', gap: '2em', marginBottom: '10px' }}>
         <label> 목록 개수
-          <select onChange={(e) => {
-              searchObj.listCount=e.target.value
-            }}>
+          <select value={searchObj.listCount} onChange={(e) => changeSearch('listCount', e.target.value)}>
             <option value="5">5</option>
             <option value="10">10</option>
             <option value="25">25</option>
           </select>
         </label>
-        <input type="text" placeholder='카테고리 명으로 검색' 
-        onInput= {(e) => searchObj.brdCtidNm=e.target.value} 
+        <input type="text" placeholder='카테고리 명으로 검색' value={searchObj.brdCtidNm}
+        onChange={(e) => changeSearch('brdCtidNm', e.target.value)}
         onKeyDown={(e) => {if(e.key == 'Enter'){
           e.preventDefault();
           searchBtn(searchObj);
           }}}/>
-        <select onChange={(e) => searchObj.useYn=e.target.value}>
+        <select value={searchObj.useYn} onChange={(e) => changeSearch('useYn', e.target.value)}>
           <option value="">선택</option>
           <option value="Y">사용</option>
           <option value="N">미사용</option>
@@ -46,7 +38,7 @@ function BoardCategoryListM0() {
         {/* <meter></meter>
       <progress></progress>
       <input type='range'></input> */}
-        <input type="date" onChange={(e) => searchObj.brdFrrgTs=e.target.value}></input>
+        <input type="date" value={searchObj.brdFrrgTs} onChange={(e) => changeSearch('brdFrrgTs', e.target.value)}></input>
         <button type="button" onClick={() => searchBtn(searchObj)}>조회</button>
       </div>
       <div>
@@ -114,6 +106,16 @@ function BoardCategoryListM0() {
           </tfoot>
         </table>
       </div>
+      {paging?.links.length > 0 && (
+        <nav aria-label="카테고리 페이지" style={{ display: 'flex', gap: '1em', marginTop: '16px' }}>
+          {paging.links.map(link => (
+            <Link key={`${link.label}:${link.to}`} to={link.to} aria-current={link.current ? 'page' : undefined}
+              style={{ fontWeight: link.current ? 'bold' : 'normal' }}>
+              {link.label}
+            </Link>
+          ))}
+        </nav>
+      )}
       {isModalOpen && <BoardListP0 onClose={() => { setIsModalOpen(false) }} onCreated={loadData} />}
     </main>
   </>;

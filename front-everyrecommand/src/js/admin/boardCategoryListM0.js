@@ -1,9 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { fetchApi } from '../common/api.js';
 import { popUpOpen } from '../common/popUp.js';
 import { createRowChangeHandler } from '../utils/formUtils.js';
 
-function useBoardCategoryListM0(searchObj) {
+function useBoardCategoryListM0() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const query = searchParams.toString();
+    const requestId = useRef(0);
+    const [paging, setPaging] = useState(null);
+    const [searchObj, setSearchObj] = useState({ listCount: '5', useYn: '', brdCtidNm: '', brdFrrgTs: '' });
     const [boards, setBoards] = useState([]);
     const [selectedIds, setSelectedIds] = useState([]);
     const [isSaving, setIsSaving] = useState(false);
@@ -11,11 +17,28 @@ function useBoardCategoryListM0(searchObj) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const loadData = async () => {
-        console.log(searchObj)
-        const queryParams = new URLSearchParams(searchObj);
-        const boardList = await fetchApi.get(`/api/admin/board-categoriesM0?${queryParams}`);
-        setBoards(boardList);
-        setSelectedIds([]);
+        const id = ++requestId.current;
+        const queryParams = new URLSearchParams(query);
+        if (!queryParams.has('listCount')) queryParams.set('listCount', '5');
+        if (!queryParams.has('currentPage')) queryParams.set('currentPage', '1');
+        setError('');
+        try {
+            const result = await fetchApi.get(`/api/admin/board-categoriesM0?${queryParams}`);
+            if (id !== requestId.current) return;
+            if (String(result.paging.currentPage) !== queryParams.get('currentPage')) {
+                queryParams.set('currentPage', String(result.paging.currentPage));
+                setSearchParams(queryParams, { replace: true });
+            }
+            setBoards(result.list);
+            setPaging(result.paging);
+            setSelectedIds([]);
+        } catch (error) {
+            if (id !== requestId.current) return;
+            setBoards([]);
+            setPaging(null);
+            setSelectedIds([]);
+            setError(error.message || '목록 조회에 실패했습니다.');
+        }
     };
 
     const deleteCategory = async (params) => {
@@ -41,7 +64,18 @@ function useBoardCategoryListM0(searchObj) {
         .map(({ brdCtid, useYn }) => ({ brdCtid, useYn })));
     const hasClosePopupCk = document.cookie.split(";").some(cookie => cookie.trim() == 'closePopup=true');
     useEffect(() => {
+        const params = new URLSearchParams(query);
+        setSearchObj({
+            listCount: params.get('listCount') ?? '5',
+            useYn: params.get('useYn') ?? '',
+            brdCtidNm: params.get('brdCtidNm') ?? '',
+            brdFrrgTs: params.get('brdFrrgTs') ?? '',
+        });
         loadData();
+        return () => { requestId.current++; };
+    }, [query]);
+
+    useEffect(() => {
         if(!hasClosePopupCk){
             popUpOpen()
         }
@@ -58,7 +92,16 @@ function useBoardCategoryListM0(searchObj) {
 
     const handleChange = createRowChangeHandler(setBoards, 'brdCtid');
     
-    const searchBtn = (params) => {console.log(params)}
+    const searchBtn = (params) => {
+        const nextParams = new URLSearchParams(params);
+        nextParams.set('currentPage', '1');
+        if (nextParams.toString() === query) {
+            loadData();
+        } else {
+            setSearchParams(nextParams);
+        }
+    };
+
     return {
         boards, 
         selectedIds, 
@@ -73,7 +116,10 @@ function useBoardCategoryListM0(searchObj) {
         selectCheckBox, 
         selectedCheckBoxes, 
         handleChange, 
-        searchBtn
+        searchBtn,
+        paging,
+        searchObj,
+        setSearchObj
     };
 }
 

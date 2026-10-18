@@ -1,50 +1,65 @@
 package com.ourcommunity.utils;
 
-/**
- * @Class
- * PagingUtils
- * 페이징 알고리즘
- * PostMapping만 사용
- */
+import java.util.Map;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+
 public class PagingUtils {
-    public static String pagingAlgorithm(String url, int totalCount, int pageSize, int listSize, int currentPage){
-        if(currentPage < 0) currentPage = 1;
-        StringBuilder paging = new StringBuilder();
-
-        // 1. 전체 페이지 구하기
-        int totalPage = (int) Math.ceil((double)totalCount/pageSize);
-
-        // 2. 유저 그룹 구하기
-        int userGroup = currentPage/listSize;
-        if(currentPage%listSize == 0){
-            userGroup--;
+    public static Map<String, Object> pagingAlgorithm(int totalCount, int pageSize, int listCount, int currentPage) {
+        if (totalCount < 0 || pageSize < 1 || listCount < 1) {
+            throw new IllegalArgumentException("Invalid paging parameters");
         }
+        int totalPage = (int) Math.ceil((double) totalCount / listCount);
+        currentPage = Math.max(1, Math.min(currentPage, Math.max(1, totalPage)));
+        int startPage = ((currentPage - 1) / pageSize) * pageSize + 1;
+        int endPage = Math.min(startPage + pageSize - 1, totalPage);
+        long start = ((long) currentPage - 1) * listCount + 1;
 
-        // 3. 페이지 목록 출력하기
-        // 3-1. 첫페이지 아닐때,
-        if(userGroup != 0){
-            paging.append("<Link to='");
-            paging.append(url);
-            paging.append("'>&lt;&lt;");
-            paging.append("</Link>");
+        return Map.of(
+                "currentPage", currentPage,
+                "listCount", listCount,
+                "totalCount", totalCount,
+                "totalPage", totalPage,
+                "startPage", startPage,
+                "endPage", endPage,
+                "start", start,
+                "end", (long) listCount * currentPage);
+    }
+
+    public static Map<String, Object> pagingAlgorithm(String url, Map<String, Object> searchParams,
+            int totalCount, int pageSize, int listCount, int currentPage) {
+        Map<String, Object> paging = new HashMap<>(pagingAlgorithm(totalCount, pageSize, listCount, currentPage));
+        int page = (int) paging.get("currentPage");
+        int startPage = (int) paging.get("startPage");
+        int endPage = (int) paging.get("endPage");
+        int totalPage = (int) paging.get("totalPage");
+        List<Map<String, Object>> links = new ArrayList<>();
+        if (startPage > 1) {
+            links.add(pageLink(url, searchParams, listCount, startPage - 1, "이전", false));
         }
-        for(int i= userGroup*pageSize + 1; i<userGroup*pageSize +1+pageSize; i++){
-            if(i>totalPage){
-                break;
+        for (int number = startPage; number <= endPage; number++) {
+            links.add(pageLink(url, searchParams, listCount, number, String.valueOf(number), number == page));
+        }
+        if (endPage < totalPage) {
+            links.add(pageLink(url, searchParams, listCount, endPage + 1, "다음", false));
+        }
+        paging.put("links", links);
+        return paging;
+    }
+
+    private static Map<String, Object> pageLink(String url, Map<String, Object> searchParams,
+            int listCount, int page, String label, boolean current) {
+        StringBuilder to = new StringBuilder(url).append("?currentPage=").append(page)
+                .append("&listCount=").append(listCount);
+        searchParams.forEach((key, value) -> {
+            if (!key.equals("currentPage") && !key.equals("listCount") && value != null) {
+                to.append('&').append(URLEncoder.encode(key, StandardCharsets.UTF_8))
+                        .append('=').append(URLEncoder.encode(value.toString(), StandardCharsets.UTF_8));
             }
-            paging.append("<Link to='");
-            paging.append(url);
-            paging.append("'>");
-            paging.append(i);
-            paging.append("</Link>");
-        }
-        // 3-2. 마지막 페이지 일때,
-        if((userGroup == totalPage/pageSize - (totalPage%pageSize==0?1:0))){
-            paging.append("<Link to='");
-            paging.append(url);
-            paging.append("'>&gt;&gt;");
-            paging.append("</Link>");
-        }
-        return paging.toString();
+        });
+        return Map.of("label", label, "to", to.toString(), "current", current);
     }
 }
