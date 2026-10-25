@@ -5,9 +5,24 @@ import { useBoardCategoryListM0} from '../../js/admin/boardCategoryListM0.js';
 import '../../css/boardCategoryListM0.css';
 function BoardCategoryListM0() {
   const {
-    boards, selectedIds, isSaving, error, isModalOpen, setIsModalOpen,
-    loadData, deleteCategory, saveSelected, selectCheckBox, selectedCheckBoxes, handleChange,
-    searchBtn, paging, searchObj, setSearchObj
+    boards, 
+    selectedIds, 
+    isSaving, 
+    error, 
+    isModalOpen, 
+    
+    setIsModalOpen,
+    loadData, 
+    deleteCategory, 
+    saveSelected, 
+    selectCheckBox, 
+    selectedCheckBoxes, 
+    handleChange,
+
+    searchBtn, 
+    paging, 
+    searchObj, 
+    setSearchObj
   } = useBoardCategoryListM0();
   const changeSearch = (name, value) => setSearchObj(prev => ({ ...prev, [name]: value }));
 

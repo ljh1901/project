@@ -9,10 +9,14 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-sql": "^6.10.0",
     "ag-grid": "^18.1.2",
     "ag-grid-community": "36.2.0",
     "ag-grid-react": "36.2.0",
+    "codemirror": "^6.0.2",
+    "eslint": "^10.13.0",
     "exceljs": "4.4.0",
+    "node-sql-parser": "^5.4.0",
     "pdfjs-dist": "5.5.207",
     "react": "19.3.0",
     "react-dom": "19.3.0",

@@ -23,6 +23,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-websocket:4.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-mail:4.1.0'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    // Source: https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser
+    implementation("com.github.jsqlparser:jsqlparser:5.3")
     implementation 'org.apache.poi:poi-ooxml:5.5.1'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'

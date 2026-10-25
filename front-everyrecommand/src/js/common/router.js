@@ -24,7 +24,7 @@ import Main from '../../layout/user/UserMain.jsx';
  * `patchRoutesOnNavigation` | 이동 시점에 아직 모르는 라우트 정의를 찾아야 할 때 | 런타임에 라우트 트리를 추가            |
  */
 // 1. `screens/admin` 바로 아래의 모든 `.jsx` 파일**
-const screens = import.meta.glob('./screens/admin/*.jsx');
+const screens = import.meta.glob('../../screens/admin/*.jsx');
 // 팝업(P0)을 제외한 게시판 화면을 파일명으로 찾아 동적으로 등록합니다.
 const boardScreens = import.meta.glob('../../screens/board/*M0.jsx');
 

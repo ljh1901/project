@@ -6,14 +6,24 @@ import java.util.HashMap;
 import java.util.List;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-
+/**
+ * @Class PagingUtils
+ * 페이징 공통 utils
+ * totalCount : 총 목록 개수
+ * pageSize : 한번에 표시할 페이지 크기
+ * listCount : 표시할 목록 개수
+ * currentPage : 현재 페이지 
+ */
 public class PagingUtils {
     public static Map<String, Object> pagingAlgorithm(int totalCount, int pageSize, int listCount, int currentPage) {
         if (totalCount < 0 || pageSize < 1 || listCount < 1) {
             throw new IllegalArgumentException("Invalid paging parameters");
         }
+        // 1. 전체 페이지
         int totalPage = (int) Math.ceil((double) totalCount / listCount);
+        // 2. 현재 페이지
         currentPage = Math.max(1, Math.min(currentPage, Math.max(1, totalPage)));
+        // 3. 시작 페이지
         int startPage = ((currentPage - 1) / pageSize) * pageSize + 1;
         int endPage = Math.min(startPage + pageSize - 1, totalPage);
         long start = ((long) currentPage - 1) * listCount + 1;

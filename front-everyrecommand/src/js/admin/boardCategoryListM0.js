@@ -18,17 +18,21 @@ function useBoardCategoryListM0() {
 
     const loadData = async () => {
         const id = ++requestId.current;
+        // encodeURIComponent('a&b');
         const queryParams = new URLSearchParams(query);
         if (!queryParams.has('listCount')) queryParams.set('listCount', '5');
         if (!queryParams.has('currentPage')) queryParams.set('currentPage', '1');
         setError('');
+
         try {
             const result = await fetchApi.get(`/api/admin/board-categoriesM0?${queryParams}`);
+
             if (id !== requestId.current) return;
             if (String(result.paging.currentPage) !== queryParams.get('currentPage')) {
                 queryParams.set('currentPage', String(result.paging.currentPage));
                 setSearchParams(queryParams, { replace: true });
             }
+
             setBoards(result.list);
             setPaging(result.paging);
             setSelectedIds([]);
