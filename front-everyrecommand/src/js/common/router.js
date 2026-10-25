@@ -1,7 +1,5 @@
 import { createElement } from 'react';
 import { createBrowserRouter, redirect, RouterProvider,} from 'react-router-dom';
-import { UserListM0 } from '../../screens/user/UserListM0.jsx';
-import { BoardCategoryListM0 } from '../../screens/board/BoardCategoryListM0.jsx';
 import AdminMain from '../../layout/admin/AdminMain.jsx';
 import Main from '../../layout/user/UserMain.jsx';
 /**
@@ -24,25 +22,40 @@ import Main from '../../layout/user/UserMain.jsx';
  * `patchRoutesOnNavigation` | 이동 시점에 아직 모르는 라우트 정의를 찾아야 할 때 | 런타임에 라우트 트리를 추가            |
  */
 // 1. `screens/admin` 바로 아래의 모든 `.jsx` 파일**
-const screens = import.meta.glob('../../screens/admin/*.jsx');
+const screens = import.meta.glob('../../screens/admin/*M0.jsx');
 // 팝업(P0)을 제외한 게시판 화면을 파일명으로 찾아 동적으로 등록합니다.
 const boardScreens = import.meta.glob('../../screens/board/*M0.jsx');
 
 
 // screens 에서 Object로 경로 동적 생성
-const adminRoutes = Object.entries(screens).map(([file, load]) => {
-  const name = file.split('/').pop().replace('.jsx', '');
+const userScreens = import.meta.glob('../../screens/user/*M0.jsx');
+const routeModules = { main: new Map(), admin: new Map() };
+
+function registerScreens(parentId, modules) {
+  Object.entries(modules).forEach(([file, load]) => {
+    const screenName = file.split('/').pop().replace('.jsx', '');
+    routeModules[parentId].set(screenName, { screenName, load });
+  });
+}
+
+registerScreens('main', boardScreens);
+registerScreens('admin', screens);
+registerScreens('admin', userScreens);
+routeModules.admin.set('users', routeModules.admin.get('UserListM0'));
+routeModules.admin.set('board-categories', routeModules.main.get('BoardCategoryListM0'));
+
+function createScreenRoute(path, { screenName, load }) {
   return {
-    path: name,
+    path,
+    handle: { screenName },
     lazy: async () => {
       const module = await load();
-      return {
-        Component: module[name],
-        handle: { screenName: name },
-      };
+      const Component = module[screenName] ?? module.default;
+      if (!Component) throw new Error(`화면 export를 찾을 수 없습니다: ${screenName}`);
+      return { Component };
     },
   };
-});
+}
 /**
  * ===================================================================
  * 2. 정적 라우트 정의
@@ -54,7 +67,7 @@ const adminRoutes = Object.entries(screens).map(([file, load]) => {
  * 1-2. 메인(게시판 목록) 화면
  * 1-3. 어드민 로그인 화면
  **/
-const router = createBrowserRouter([
+const staticRoutes = [
   {
     id: "root",
     path: "error",
@@ -81,39 +94,23 @@ const router = createBrowserRouter([
       children: [
         { 
           index: true,
-          lazy: async () => {
-            const module = await boardScreens['../../screens/board/BoardListM0.jsx']();
-            return {
-              Component: module.BoardListM0,
-              handle: { screenName: 'BoardListM0' },
-            };
-          },
+          ...createScreenRoute('', routeModules.main.get('BoardListM0')),
         },
       ]
     },
     {
       path: "/admin",
+      id: "admin",
       Component: AdminMain,
       children:[
         {
           index: true,
           loader: () => redirect("/admin/users"),
         },
-        {
-          path: "users",
-          Component: UserListM0,
-          handle: { screenName: 'UserListM0' },
-        },
-        {
-          path: "board-categories",
-          Component: BoardCategoryListM0,
-          handle: { screenName: 'BoardCategoryListM0' },
-        },
-        ...adminRoutes,
       ]
     },
-  ],
-    {/**
+  ];
+    /**
       * ===================================================================
       * 3. 동적 라우트 정의
       * ===================================================================
@@ -128,29 +125,21 @@ const router = createBrowserRouter([
       * 컴포넌트 코드를 동적으로 로딩
       * 
       **/ 
-    async patchRoutesOnNavigation({ path, patch }) {
-      const match = path.match(/^\/boards\/([^/]+)\/?$/);
+    async function patchRoutesOnNavigation({ path, patch }) {
+      const match = path.match(/^\/(boards|admin)\/([^/]+)\/?$/);
       if (!match) return;
 
-      const screenName = match[1];
-      const load = boardScreens[`../../screens/board/${screenName}.jsx`];
+      const parentId = match[1] === 'boards' ? 'main' : 'admin';
+      const routePath = match[2];
+      const screen = routeModules[parentId].get(routePath);
 
       // 실제로 존재하는 화면만 등록
-      if (!load) return;
+      if (!screen) return;
 
-      patch("main", [
-        {
-          path: screenName,
-          handle: { screenName },
-          lazy: async () => {
-            const module = await load();
-            return { Component: module[screenName] };
-          },
-        },
-      ]);
-    },
+      patch(parentId, [createScreenRoute(routePath, screen)]);
   }
-);
+
+const router = createBrowserRouter(staticRoutes, { patchRoutesOnNavigation });
 function Router() {
   return createElement(RouterProvider, { router });
 }

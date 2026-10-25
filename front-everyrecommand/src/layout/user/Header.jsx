@@ -11,7 +11,7 @@ function Header({ context = '커뮤니티' }) {
                 <div className="site-brand-row">
                     <Link to="/" className="site-brand-mark" aria-label="모두의 추천 홈">M</Link>
                     <a onClick={() => window.location.reload()} style={{cursor: 'pointer'}} className="brand">모두의 추천</a>
-                    <Link to={navigate(0)}>새로고침</Link>
+                    <button type="button" onClick={() => navigate(0)}>새로고침</button>
                     <span className="site-context">{context}{screenName}</span>
                 </div>
             </div>

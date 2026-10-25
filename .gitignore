@@ -1,11 +1,20 @@
+# 설정 파일
 .gradle/
 build/
 bin/
+
+# IDE TOOL
 .idea/
 .vscode/
-*.iml
-.env
-*.log
+workspace/
+
+# 파일 관련
 uploads/
 docs/
 AGENTS.md
+*.log
+
+*.iml
+.env
+#프로젝트 관련 폴더
+target/

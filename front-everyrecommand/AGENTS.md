@@ -32,29 +32,58 @@
 * MyBatis
 
   * SQL Mapper 기반 데이터 접근
-
 ### Database
 
 * PostgreSQL
 
-### Library
+### Backend Library
 
-* Apache POI
+백엔드 의존성 및 버전은 `backend-everyrecommand/build.gradle`을 기준으로 확인합니다.
 
-  * Excel 문서 처리
-* pdf.js
+| 라이브러리 | 의존성 | 역할 |
+|---|---|---|
+| Spring Web MVC | `spring-boot-starter-webmvc` | REST API 및 HTTP 요청·응답 처리 |
+| Spring Security | `spring-boot-starter-security` | 인증 및 권한 처리 |
+| Spring Batch | `spring-boot-starter-batch` | 배치 작업 |
+| Spring WebSocket | `spring-boot-websocket` | 실시간 양방향 통신 |
+| MyBatis | `mybatis-spring-boot-starter` | SQL Mapper 및 DB 접근 |
+| Apache POI | `org.apache.poi:poi-ooxml` | Excel 문서 처리 |
+| JSQLParser | `com.github.jsqlparser:jsqlparser` | Java에서 SQL 파싱 및 구조 분석 |
+| Thymeleaf | `spring-boot-starter-thymeleaf` | 서버 HTML 템플릿 처리 |
+| Spring Mail | `spring-boot-starter-mail` | 이메일 전송 |
+| Log4j2 | `spring-boot-starter-log4j2` | 서버 로그 처리 |
+| Lombok | `org.projectlombok:lombok` | 컴파일 시 반복 코드 생성 |
+| PostgreSQL JDBC | `org.postgresql:postgresql` | Java와 PostgreSQL 연결 |
 
-  * PDF 조회 및 렌더링
-* AG Grid
+### Frontend Library
 
-  * 데이터 그리드
-* Excel.js
+프론트엔드 의존성 및 버전 범위는 `package.json`을 기준으로 확인합니다. 패키지가 선언되어 있다는 사실과 개별 화면에 기능이 연결되어 있다는 사실을 구분합니다.
 
-  * Excel 생성 및 처리
+| 라이브러리 / 도구 | 패키지 | 역할 |
+|---|---|---|
+| React / React DOM | `react`, `react-dom` | 컴포넌트, Hook, 브라우저 DOM 렌더링 |
+| React Router | `react-router-dom` | 내부 URL 이동, 레이아웃, 동적 라우트 및 화면 지연 로딩 |
+| CodeMirror 6 | `codemirror` | 코드 편집기 |
+| CodeMirror SQL | `@codemirror/lang-sql` | SQL 언어 지원, 구문 강조 및 자동완성 |
+| node-sql-parser | `node-sql-parser` | SQL 문자열 파싱, AST 생성 및 지원 문법 검사 |
+| ESLint | `eslint` | JavaScript / JSX 정적 분석. SQL 문법 검사나 편집기 오류 표시 도구와 구분 |
+| AG Grid | `ag-grid-community`, `ag-grid-react` | 데이터 그리드 및 React 연결 |
+| Excel.js | `exceljs` | Excel 파일 생성 및 처리 |
+| pdf.js | `pdfjs-dist` | PDF 조회 및 렌더링 |
+
+* `ag-grid` 패키지도 기존 의존성에 선언되어 있습니다. 그리드 작업 시 실제 화면에서 사용하는 `ag-grid-community` / `ag-grid-react` 구성을 먼저 확인하고 재사용합니다.
+* CodeMirror 6에서는 SQL·lint 기능을 모듈로 연결합니다. 구버전 예제의 `sql.js`, `lint.js` 파일을 그대로 혼용하지 않습니다.
+* `@codemirror/lint`는 검사 결과를 편집기에 표시하는 확장입니다. 현재 직접 의존성에는 선언되어 있지 않으므로 설치·연결된 기능으로 간주하지 않습니다.
+* 별도 라이브러리 `sql.js`는 브라우저에서 SQLite를 실행하는 도구로, `@codemirror/lang-sql`과 다릅니다. 현재 직접 의존성에는 선언되어 있지 않습니다.
+* `node-sql-parser`의 파싱 성공은 실제 DB의 테이블·컬럼 존재 여부나 SQL 실행 권한 검증을 의미하지 않습니다.
 
 ### Build
 
-* Gradle
+| 구분 | 도구 | 역할 |
+|---|---|---|
+| Backend | Gradle | Java 의존성 관리, 컴파일 및 빌드 |
+| Frontend | npm | npm 패키지 관리 및 스크립트 실행 |
+| Frontend | Vite / `@vitejs/plugin-react` | 개발 서버, 프론트엔드 빌드 및 React 변환 |
 
 ### AI Coding Tool
 

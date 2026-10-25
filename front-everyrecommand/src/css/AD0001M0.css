@@ -1,0 +1,171 @@
+﻿.sql-workspace {
+    width: min(1120px, 100%);
+    margin: 0 auto;
+    padding: 36px 24px 56px;
+    flex: 1;
+}
+
+.sql-workspace-heading,
+.sql-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+}
+
+.sql-workspace-heading {
+    margin-bottom: 28px;
+}
+
+.sql-workspace-eyebrow {
+    margin: 0 0 8px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.sql-workspace-heading h1 {
+    margin: 0 0 8px;
+    font-size: 28px;
+    letter-spacing: -1px;
+}
+
+.sql-workspace-heading p:last-child,
+.sql-panel-heading p {
+    margin: 0;
+    color: var(--color-muted);
+    font-size: 13px;
+}
+
+.sql-workspace-badge {
+    padding: 5px 12px;
+    border: 1px solid #c8def6;
+    border-radius: 20px;
+    background: #eef6ff;
+    color: var(--color-accent);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sql-panel {
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-canvas);
+    box-shadow: 0 2px 8px #1f232805;
+}
+
+.sql-panel-heading {
+    padding: 18px 22px;
+    border-bottom: 1px solid var(--color-line);
+}
+
+.sql-panel-heading h2 {
+    margin: 0 0 4px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.sql-panel-label {
+    color: var(--color-muted);
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+.sql-editor-label {
+    display: block;
+    margin: 18px 22px 8px;
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.sql-query-input {
+    display: block;
+    width: calc(100% - 44px);
+    min-height: 260px;
+    margin: 0 22px 18px;
+    padding: 18px;
+    background: #f8fafc;
+    font-family: Consolas, 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.9;
+    tab-size: 4;
+}
+
+.sql-editor-caption {
+    padding: 11px 22px;
+    border-top: 1px solid var(--color-line);
+    background: var(--color-subtle);
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+.sql-table-scroll {
+    overflow-x: auto;
+}
+
+.sql-params-table {
+    width: 100%;
+    min-width: 540px;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.sql-params-table th {
+    padding: 12px 22px;
+    border-bottom: 1px solid var(--color-line);
+    background: var(--color-subtle);
+    color: var(--color-muted);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.sql-params-table .sql-empty-state {
+    padding: 38px 22px;
+    text-align: center;
+}
+
+.sql-empty-state strong,
+.sql-empty-state span {
+    display: block;
+}
+
+.sql-empty-state strong {
+    margin-bottom: 6px;
+    font-size: 13px;
+    font-weight: 500;
+}
+
+.sql-empty-state span {
+    color: var(--color-muted);
+    font-size: 12px;
+}
+
+@media (max-width: 600px) {
+    .sql-workspace {
+        padding: 24px 16px 36px;
+    }
+
+    .sql-workspace-heading {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .sql-panel-heading {
+        padding: 16px;
+    }
+
+    .sql-panel-label {
+        display: none;
+    }
+
+    .sql-query-input {
+        width: calc(100% - 32px);
+        margin-right: 16px;
+        margin-left: 16px;
+    }
+
+    .sql-editor-label {
+        margin-left: 16px;
+    }
+}
