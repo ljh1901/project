@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { BoardListP0 } from './BoardListP0.jsx';
-import { formatTs } from '../../js/utils/timeUtils.js';
+import { utils } from '../../js/utils/timeUtils.js';
 import { useBoardCategoryListM0} from '../../js/admin/boardCategoryListM0.js';
 import '../../css/boardCategoryListM0.css';
 function BoardCategoryListM0() {
@@ -99,9 +99,9 @@ function BoardCategoryListM0() {
                     <option value="N">미사용</option>
                   </select>
                 </td>
-                <td>{formatTs(board.brdFrrgTs)}</td>
+                <td>{utils.formatTs(board.brdFrrgTs)}</td>
                 <td>{board.brdLsmdFnm}</td>
-                <td>{formatTs(board.brdLsmdTs)}</td>
+                <td>{utils.formatTs(board.brdLsmdTs)}</td>
                 <td>{board.brdLsmdUnm}</td>
                 <td>
                   <button disabled={isSaving} onClick={() => deleteCategory({ brdCtid: board.brdCtid, useYn: board.useYn })}>삭제</button>

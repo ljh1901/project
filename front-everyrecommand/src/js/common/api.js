@@ -55,11 +55,22 @@ const fetchApi = {
     return request(url, { method: 'GET' });
   },
   post(url, params, options = {}) {
-    return request(url, {
-      method: 'POST',
-      headers: {'Content-Type': options.contentType ?? 'application/json'},
-      body: JSON.stringify(params),
-    });
+    if(options?.contentType == null){
+      return request(url, {
+          method: 'POST',
+          headers: {'Content-Type':'application/json'},
+          body: JSON.stringify(params),
+      });
+    }else{
+      // formData 방식일때 생각
+      let formData = new FormData();
+      return request(url, {method: 'POST',
+                           headers: {
+                            'Content-Type': 'multipart/form-data'
+                           },
+                           body: formData,
+                          })
+    }
   },
   put(url, params) {
     return request(url, {

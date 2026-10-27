@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchApi } from '../common/api.js';
-
+import { utils } from '../utils/timeUtils.js';
 const dateFormatter = ({ value }) => value ? String(value).split('T')[0] : '-';
 
 const userColumns = [
@@ -75,7 +75,7 @@ function useUserListM0() {
             }));
             try {
                 link.href = url;
-                link.download = '사용자_목록.xlsx';
+                link.download = "사용자목록"+utils.getToday('YYYYMMDD')+".xlsx";
                 link.click();
             } finally {
                 setTimeout(() => URL.revokeObjectURL(url), 1000);

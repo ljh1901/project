@@ -12,7 +12,11 @@ import com.ourcommunity.service.common.CommonService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+/**
+ * 1. RestTemplate
+ * 2. WebClient
+ * 3. RestClient
+ */
 @Controller 
 @RequiredArgsConstructor 
 public class CommonController {

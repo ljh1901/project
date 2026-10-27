@@ -78,7 +78,7 @@ public class EmailServiceImpl implements EmailService{
             // 1-1. 발신자 설정
             helper.setFrom("everyrecommand@ourcommunity.com");
             // 1-2. 수신자 설정
-            textEncryptor.decrypt(MapUtils.getString(params, "userEmail"));
+            // textEncryptor.decrypt(MapUtils.getString(params, "userEmail"));
             helper.setTo(textEncryptor.decrypt(MapUtils.getString(params, "userEmail")));
             // 1-3. 제목 설정
             helper.setSubject(String.valueOf(params.get("subject")));

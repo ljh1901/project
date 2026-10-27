@@ -62,7 +62,11 @@ function useBoardCategoryListM0() {
             setIsSaving(false);
         }
     };
-
+        console.log({
+    url: location.href,
+    origin: location.origin,
+    cookie: document.cookie,
+});
     const saveSelected = () => saveCategories(boards
         .filter(board => selectedIds.includes(board.brdCtid))
         .map(({ brdCtid, useYn }) => ({ brdCtid, useYn })));
