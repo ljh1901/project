@@ -1,7 +1,6 @@
 import { useLayoutEffect, useRef, useSyncExternalStore } from 'react';
 import { createPortal } from 'react-dom';
 import { subscribePopup, getActivePopup, closePopup } from './popupMyAlert.js';
-import '../../css/popupMyAlert.css';
 
 function PopupMyAlert() {
   const active = useSyncExternalStore(subscribePopup, getActivePopup);

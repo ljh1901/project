@@ -2,7 +2,9 @@ import { createElement } from 'react';
 import { createRoot } from 'react-dom/client';
 import { loadAppConfig } from './appConfig.js';
 import { App } from '../../App.jsx';
-import '../../css/styles.css';
+import '../../css/color.css';
+import '../../css/web.css';
+import '../../css/mobileWeb.css';
 
 const root = createRoot(document.getElementById('root'));
 root.render(createElement('p', { className: 'loading', role: 'status' }, '모두의 추천을 준비하고 있습니다.'));
@@ -17,4 +19,5 @@ loadAppConfig()
     createElement('p', { role: 'alert' }, error.message),
     createElement('button', { onClick: () => location.reload() }, '다시 시도'))
     )   
+    
     );

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ourcommunity.mapper.user.User0001Mapper">
+    <select id="userListM0" resultType="MybatisMap">
+        SELECT SEQ_TB_EVRC_USERS,
+               USER_ID,
+               USER_NAME,
+               USER_BRTH,
+               USER_CRET,
+               USER_UPET,
+               USER_EMIL,
+               USER_PRFID
+        FROM TB_EVRC_USERS
+        ORDER BY SEQ_TB_EVRC_USERS
+    </select>
+    <select id="userListP0" parameterType="map" resultType="MybatisMap">
+            SELECT SEQ_TB_EVRC_USERS,
+               USER_ID,
+               USER_NAME,
+               USER_BRTH,
+               USER_CRET,
+               USER_UPET,
+               USER_EMIL,
+               USER_PRFID
+            FROM TB_EVRC_USERS
+            WHERE SEQ_TB_EVRC_USERS = #{seq}
+            AND USER_ID= #{userId}
+    </select>
+</mapper>

@@ -1,9 +1,7 @@
-﻿import { Link, NavLink, useMatches, useNavigate } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 
 function Header({ context = '커뮤니티' }) {
     const navClass = ({ isActive }) => isActive ? 'active' : undefined;
-    const matches = useMatches();
-    const screenName = matches[matches.length - 1]?.handle?.screenName;
     const navigate = useNavigate();
     return (
         <header className="site-header">
@@ -12,7 +10,7 @@ function Header({ context = '커뮤니티' }) {
                     <Link to="/" className="site-brand-mark" aria-label="모두의 추천 홈">M</Link>
                     <a onClick={() => window.location.reload()} style={{cursor: 'pointer'}} className="brand">모두의 추천</a>
                     <button type="button" onClick={() => navigate(0)}>새로고침</button>
-                    <span className="site-context">{context}{screenName}</span>
+                    <span className="site-context">{context}</span>
                 </div>
             </div>
             <nav className="site-nav" aria-label="주 메뉴">

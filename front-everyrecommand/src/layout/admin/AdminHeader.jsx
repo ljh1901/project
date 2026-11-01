@@ -6,7 +6,7 @@ function AdminHeader() {
     return (
         <>
             <Header context="관리자" />
-            <nav aria-label="관리자 도구">
+            <nav aria-label="관리자 도구" className="admin-nav">
                 <NavLink to="/admin/AD0001M0">SQL 관리</NavLink>
             </nav>
         </>

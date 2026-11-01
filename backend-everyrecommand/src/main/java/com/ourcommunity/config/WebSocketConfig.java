@@ -5,7 +5,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocket;
 import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
 import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
-import com.ourcommunity.common.handler.WebSocketHandler;
+import com.ourcommunity.common.handler.chat.Chat0001Handler;
 
 import lombok.RequiredArgsConstructor;
 
@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @EnableWebSocket
 @RequiredArgsConstructor 
 public class WebSocketConfig implements WebSocketConfigurer{
-    private final WebSocketHandler webSocketHandler;
+    private final Chat0001Handler webSocketHandler;
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
