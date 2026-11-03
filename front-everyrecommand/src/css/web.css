@@ -2341,3 +2341,36 @@ main {
     min-width: 0;
 }
 
+
+/* User0002M0 프롬프트 입력창 */
+.chat_container {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    padding: 10px 12px;
+    border: 1px solid var(--color-border);
+    border-radius: 24px;
+    background: var(--color-canvas);
+}
+
+.chatInput {
+    flex: 1;
+    min-height: 24px;
+    max-height: 200px;
+    overflow-y: auto;
+    line-height: 1.5;
+    white-space: pre-wrap;
+    word-break: break-word;
+    outline: none;
+}
+
+.chatInput[data-empty='true']::before {
+    content: attr(data-placeholder);
+    color: var(--color-muted);
+    pointer-events: none;
+}
+
+.handleSend:disabled {
+    opacity: 0.5;
+    cursor: default;
+}

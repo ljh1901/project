@@ -23,14 +23,16 @@ import Main from '../../layout/user/UserMain.jsx';
  */
 // 1. `screens/admin` 바로 아래의 모든 `.jsx` 파일**
 const screens = import.meta.glob('../../screens/admin/*M[0-9]*.jsx');
+
 // 팝업(P0)을 제외한 게시판 화면을 파일명으로 찾아 동적으로 등록합니다.
 const boardScreens = import.meta.glob('../../screens/board/*M[0-9]*.jsx');
-
+const chatScreens = import.meta.glob('../../screens/chat/*M[0-9]*.jsx');
 
 // screens 에서 Object로 경로 동적 생성
 const userScreens = import.meta.glob('../../screens/user/*M[0-9]*.jsx');
-const routeModules = { main: new Map(), admin: new Map() };
 
+
+const routeModules = { main: new Map(), admin: new Map() };
 function registerScreens(parentId, modules) {
   Object.entries(modules).forEach(([file, load]) => {
     const screenName = file.split('/').pop().replace('.jsx', '');
@@ -39,14 +41,14 @@ function registerScreens(parentId, modules) {
 }
 
 registerScreens('main', boardScreens);
+registerScreens('main', chatScreens);
+registerScreens('main', userScreens);
 registerScreens('admin', screens);
-registerScreens('admin', userScreens);
-
 // 파일명이 바뀌어도 기존 화면 URL은 유지합니다.
 routeModules.main.set('BoardListM0', routeModules.main.get('Board0001M0'));
 routeModules.main.set('BoardWriteM0', routeModules.main.get('Board0001M1'));
 routeModules.main.set('BoardCategoryListM0', routeModules.main.get('Board0002M0'));
-routeModules.admin.set('UserListM0', routeModules.admin.get('User0001M0'));
+routeModules.admin.set('UserListM0', routeModules.admin.get('Admin0002M0'));
 routeModules.admin.set('AD0001M0', routeModules.admin.get('Admin0001M0'));
 
 routeModules.admin.set('users', routeModules.admin.get('UserListM0'));
@@ -117,6 +119,17 @@ const staticRoutes = [
         },
       ]
     },
+    {
+      path: "/quiz",
+      id: "quiz",
+      Component: Main,
+      children : [
+        {
+          index: true,
+          ...createScreenRoute('', routeModules.main.get('User0002M0')),
+        }
+    ]
+    }
   ];
     /**
       * ===================================================================

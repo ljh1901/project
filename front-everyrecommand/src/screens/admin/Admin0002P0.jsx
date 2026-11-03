@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { fetchApi } from '../../js/common/api';
-export function User0001P0({ userInfo, onClose }) {
+export function Admin0002P0({ userInfo, onClose }) {
 
   const dialogRef = useRef(null);
   /**

@@ -4,12 +4,12 @@ import { utils } from '../utils/timeUtils.js';
 const dateFormatter = ({ value }) => value ? String(value).split('T')[0] : '-';
 
 const userColumns = [
-    { field: 'seqTbEvrcUsers', headerName: '사용자 번호', minWidth: 120 },
-    { field: 'userId', headerName: '아이디', minWidth: 140 },
-    { field: 'userName', headerName: '이름', minWidth: 120 },
-    { field: 'userBrth', headerName: '생년월일', minWidth: 140, valueFormatter: dateFormatter },
+    { field: 'seqTbEvrcUsers', headerName: '사용자 번호', minWidth: 80 },
+    { field: 'userId', headerName: '아이디', minWidth: 120 },
+    { field: 'userName', headerName: '이름', minWidth: 100 },
+    { field: 'userBrth', headerName: '생년월일', minWidth: 120, valueFormatter: dateFormatter },
     { field: 'userEmil', headerName: '이메일', minWidth: 220 },
-    { field: 'userPrfid', headerName: '전화번호', minWidth: 160, valueFormatter: ({ value }) => value || '-' },
+    { field: 'userPrfid', headerName: '전화번호', minWidth: 140, valueFormatter: ({ value }) => value || '-' },
     { field: 'userCret', headerName: '최초 생성일', minWidth: 140, valueFormatter: dateFormatter },
     { field: 'userUpet', headerName: '최종 수정일', minWidth: 140, valueFormatter: dateFormatter },
 ];

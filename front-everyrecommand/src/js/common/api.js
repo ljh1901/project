@@ -95,6 +95,12 @@ const xhrApi = (url, params, options = {}) => {
     const method = (options.method ?? 'GET').toUpperCase();
 
     xhr.open(method, url, true);
+    /**
+     * 
+     * @XMLHttpRequest
+     * // 최신에서는
+     * xhr.onload()를 자주 사용
+     */
     xhr.onreadystatechange = () => xhrResponse(xhr, resolve, reject);
     xhr.onerror = () => {
       reject(new ApiError('네트워크 오류가 발생했습니다.'));

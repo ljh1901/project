@@ -1,6 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ourcommunity.mapper.board.Board0002Mapper">
+    <sql id="boardCategoryColumns">
+            SELECT BRD_CTID, 
+                   BRD_CTID_NM,
+                   USE_YN,
+                   BRD_LSMD_FNM,
+                   BRD_LSMD_UNM,
+                   BRD_FRRG_TS,
+                   BRD_LSMD_TS
+    </sql>
     <select id="boardCategoryM0Cnt" parameterType="map" resultType="Integer">
         SELECT COUNT(1)
         FROM TB_EVRC_BRDCT
@@ -15,15 +24,6 @@
                 AND BRD_FRRG_TS <![CDATA[>=]]> CAST(#{brdFrrgTs} AS DATE)
             </if>
     </select>
-    <sql id="boardCategoryColumns">
-            SELECT BRD_CTID, 
-	               BRD_CTID_NM,
-	               USE_YN,
-	               BRD_LSMD_FNM,
-	               BRD_LSMD_UNM,
-	               BRD_FRRG_TS,
-	               BRD_LSMD_TS
-    </sql>
     <select id="boardCategoryM0" parameterType="map" resultType="MybatisMap">
         SELECT TB.*
         FROM (

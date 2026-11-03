@@ -1,7 +1,9 @@
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+﻿import { Link, NavLink, useMatches, useNavigate } from 'react-router-dom';
 
 function Header({ context = '커뮤니티' }) {
     const navClass = ({ isActive }) => isActive ? 'active' : undefined;
+    const matches = useMatches();
+    const screenName = matches[matches.length - 1]?.handle?.screenName;
     const navigate = useNavigate();
     return (
         <header className="site-header">
@@ -11,6 +13,7 @@ function Header({ context = '커뮤니티' }) {
                     <a onClick={() => window.location.reload()} style={{cursor: 'pointer'}} className="brand">모두의 추천</a>
                     <button type="button" onClick={() => navigate(0)}>새로고침</button>
                     <span className="site-context">{context}</span>
+                    <span className="site-context">{screenName}</span>
                 </div>
             </div>
             <nav className="site-nav" aria-label="주 메뉴">
@@ -32,6 +35,9 @@ function Header({ context = '커뮤니티' }) {
                         <rect x="2" y="2" width="12" height="12" rx="1.5" /><path d="M5 5h6M5 8h6M5 11h4" />
                     </svg>
                     게시판
+                </NavLink>
+                <NavLink to="/quiz" className={navClass}>
+                    퀴즈 풀기
                 </NavLink>
             </nav>
         </header>

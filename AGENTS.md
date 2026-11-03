@@ -23,7 +23,8 @@
 - 클래스: `PascalCase`, 메서드·변수: `camelCase`, 상수: `UPPER_SNAKE_CASE`.
 - Controller는 요청·검증·응답을 담당하고 비즈니스 로직은 ServiceImpl에 둔다.
 - 요청/응답은 기존 공통 구조를 우선하고 신규 DTO/VO를 만들지 않는다.
-- SQL은 MyBatis Mapper에 작성하고 `#{}` 바인딩을 기본으로 한다.
+- SQL은 MyBatis Mapper에 작성하고 `#{}` 바인딩을 기본으로 한다. 
+  (단, <include refId="sqlId"></include> 및 <sql id="자주 사용하는 구문ID"></sql>를 남발하지 않는다.)
 - 환경값은 프로필별 설정으로 관리하고, 비밀값을 프론트엔드에 전달하지 않는다.
 - 외부 라이브러리 추가, DB 스키마 변경, 공통 인증·라우팅 변경은 사전 영향 검토가 필요하다.
 

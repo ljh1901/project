@@ -1,26 +1,13 @@
 package com.ourcommunity.controller.board;
 
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
 import com.ourcommunity.service.board.Board0002Service;
 import com.ourcommunity.service.board.impl.Board0002ServiceImpl;
-
 import org.springframework.web.bind.annotation.GetMapping;
-
-
-import lombok.RequiredArgsConstructor;
-import lombok.ToString;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 import java.util.Map;
-
-import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

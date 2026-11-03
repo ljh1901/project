@@ -1,9 +1,9 @@
 ﻿import { useMemo } from 'react';
 import { AllCommunityModule, themeQuartz } from 'ag-grid-community';
 import { AgGridReact } from 'ag-grid-react';
-import { User0001P0 } from './User0001P0.jsx';
-import { userColumns, useUserListM0 } from '../../js/user/user0001M0.js';
-
+import { Admin0002P0 } from './Admin0002P0.jsx';
+import { userColumns, useUserListM0 } from '../../js/admin/admin0002M0.js';
+import { chat0001M0 } from '../../js/chat/chat0001M0.js';
 const modules = [AllCommunityModule];
 const gridTheme = themeQuartz.withParams({
     accentColor: '#0969da',
@@ -18,14 +18,13 @@ const gridTheme = themeQuartz.withParams({
     headerFontSize: 12,
     headerHeight: 42,
     rowHeight: 48,
-    cellHorizontalPadding: 16,
     wrapperBorderRadius: 0,
 });
 const defaultColDef = { flex: 1, sortable: true, resizable: true };
 const localeText = { noRowsToShow: '등록된 사용자가 없습니다.', loadingOoo: '사용자 목록을 불러오는 중입니다.' };
 const getRowId = ({ data }) => String(data.seqTbEvrcUsers);
 
-export function User0001M0() {
+export function Admin0002M0() {
     const {
         users, selectedUser, setSelectedUser, isLoading, isDownloading, downloadRef, downloadExcel,
     } = useUserListM0();
@@ -40,6 +39,13 @@ export function User0001M0() {
                 <button type="button" className="user-detail-button" onClick={() => setSelectedUser(data)}>상세보기</button>
             ),
         },
+        {
+            headerName: '요청', minWidth: 140,
+            colId: 'wsChat',
+            minWidth: 120,
+            sortable: false,
+            cellRenderer: ({data}) => (<button type="button" className="user-detail-button" onClick={() => chat0001M0(data)}>채팅 보내기</button>),
+        }
     ], [setSelectedUser]);
 
     return (
@@ -78,7 +84,7 @@ export function User0001M0() {
                 </div>
             </section>
             {selectedUser && (
-                <User0001P0 userInfo={selectedUser} onClose={() => setSelectedUser(null)} />
+                <Admin0002P0 userInfo={selectedUser} onClose={() => setSelectedUser(null)} />
             )}
         </main>
     );
